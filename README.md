@@ -12,8 +12,7 @@ connexus-project/
 │   |__ assets/               # Static assets like images, fonts, etc.
 │   │   └── images/   
 │   ├── components/           # Reusable components
-│   │   ├── Button.js
-│   │   └── Header.js
+│   │
 │   ├── contexts/             # Context & Theme
 │   │   ├── AuthContext.jsx
 │   │   └── ThemeContext.jsx
