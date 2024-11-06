@@ -1,6 +1,6 @@
 #
 
-`project-root/
+````project-root/
 ├── public/ # Static files and assets
 │ ├── index.html # Main HTML file
 │ ├── favicon.ico # Favicon for the project
@@ -19,4 +19,5 @@
 ├── .env # Environment variables
 ├── .gitignore # Files and directories ignored by Git
 ├── package.json # Project dependencies and scripts
-└── README.md # Project documentation`
+└── README.md # Project documentation```
+````
