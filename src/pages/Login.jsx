@@ -5,6 +5,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 
 import ConnexLogo from "../assets/Connex_Logo.svg";
+import SectionImage from "../assets/isometric-building.png";
+import SectionLogo from "../assets/Connex_Logo2.svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -145,7 +147,20 @@ const Login = () => {
       </div>
 
       {/* Right Section - Blue Background */}
-      <div className="hidden md:block w-1/2 bg-blue"></div>
+      <div className="hidden md:block w-1/2 bg-blue dark:bg-white relative">
+        <div className="flex flex-col items-center my-20">
+          <img
+            src={SectionImage}
+            style={{ height: "500px", width: "auto" }}
+            alt="section_image"
+          />
+          <img src={SectionLogo} height={150} width={150} alt="section_logo" />
+          <h1 className="text-4xl font-bold text-center leading-10 text-white dark:text-gray-800 mt-8">
+            One Platform, <br /> Endless Possibilities{" "}
+          </h1>
+          <div className="absolute inset-0 bg-blue bg-opacity-30 dark:bg-transparent"></div>
+        </div>
+      </div>
     </div>
   );
 };
