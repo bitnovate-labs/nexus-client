@@ -1,6 +1,6 @@
 import {
-  UserOutlined,
-  SettingOutlined,
+  // UserOutlined,
+  // SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";

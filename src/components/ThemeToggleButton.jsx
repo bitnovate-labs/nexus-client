@@ -7,6 +7,7 @@ const ThemeToggleButton = () => {
 
   return (
     <Button
+      size="large"
       type="text"
       icon={isDark ? <SunOutlined /> : <MoonOutlined />}
       onClick={toggleTheme}

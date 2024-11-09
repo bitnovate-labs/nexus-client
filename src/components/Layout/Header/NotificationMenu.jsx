@@ -26,10 +26,10 @@ const NotificationMenu = () => {
 
   return (
     <Dropdown menu={{ items }} placement="bottomRight" arrow>
-      <div className="cursor-pointer">
+      <div className="cursor-pointer flex items-center">
         {notifications.length > 0 ? (
           <Badge count={notifications.length}>
-            <BellOutlined className="text-2xl md:text-xl" />
+            <BellOutlined className="text-xl md:text-xl" />
           </Badge>
         ) : (
           <BellOutlined className="text-xl" />
