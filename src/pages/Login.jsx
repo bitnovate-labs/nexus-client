@@ -1,13 +1,16 @@
-import { Form, Input, Button } from "antd"
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
+import { Form, Input, Button, message } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
 
-import ConnexLogo from "../assets/Connex_Logo.svg"
+import ConnexLogo from "../assets/Connex_Logo.svg";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const { login } = useAuth()
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const { isDark } = useTheme();
+  const [form] = Form.useForm();
 
   // Temporary login ID and password
   const onFinish = (values) => {
@@ -16,24 +19,47 @@ const Login = () => {
         name: "Admin User",
         token: "mock-jwt-token",
         username: values.username,
-      })
-      navigate("/dashboard")
+      });
+      navigate("/dashboard");
+    } else {
+      message.error("Invalid username or password");
+      form.setFields([
+        {
+          name: "password",
+          errors: ["Incorrect username or password"],
+        },
+      ]);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex md:flex-row">
+    <div className={`min-h-screen flex md:flex-row ${isDark ? "dark" : ""}`}>
       {/* Left Section */}
-      <div className="w-full md:w-1/2 p-8 flex items-center justify-center bg-white">
+      <div
+        className={`w-full md:w-1/2 p-8 flex items-center justify-center ${
+          isDark ? "bg-gray-900" : "bg-white"
+        }`}
+      >
         <div className="w-full max-w-md space-y-6">
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <h1
+              className={`text-2xl font-semibold text-center md:text-left ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
               Welcome To Connexus Portal
             </h1>
-            <p className="text-gray-600">Enter your details to proceed.</p>
+            <p
+              className={`text-center md:text-left ${
+                isDark ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              Enter your details to proceed.
+            </p>
           </div>
 
           <Form
+            form={form}
             name="login"
             onFinish={onFinish}
             layout="vertical"
@@ -45,7 +71,12 @@ const Login = () => {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Input placeholder="Username" className="h-12 text-base" />
+              <Input
+                placeholder="Username"
+                className={`h-12 text-base ${
+                  isDark ? "bg-gray-800 border-gray-700 text-white" : ""
+                }`}
+              />
             </Form.Item>
 
             <Form.Item
@@ -56,7 +87,9 @@ const Login = () => {
             >
               <Input.Password
                 placeholder="Password"
-                className="h-12 text-base"
+                className={`h-12 text-base ${
+                  isDark ? "bg-gray-800 border-gray-700 text-white" : ""
+                }`}
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -83,7 +116,7 @@ const Login = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="w-full h-12 text-base bg-blue-600 hover:bg-blue-700 mt-6"
+                className="w-full h-12 text-base bg-blue hover:bg-blue-700 mt-6"
               >
                 Log In
               </Button>
@@ -97,7 +130,12 @@ const Login = () => {
                   height={15}
                   width={15}
                   alt="logo"
-                  className="mr-2"
+                  // className="mr-2"
+                  className={`mr-2 ${
+                    isDark
+                      ? "text-blue-400 hover:text-blue-300"
+                      : "text-blue-600 hover:text-blue-800"
+                  }`}
                 />
                 Connexus Group
               </span>
@@ -107,9 +145,9 @@ const Login = () => {
       </div>
 
       {/* Right Section - Blue Background */}
-      <div className="hidden md:block w-1/2 bg-blue-600"></div>
+      <div className="hidden md:block w-1/2 bg-blue"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

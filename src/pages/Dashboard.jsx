@@ -1,48 +1,64 @@
-import { Card, Row, Col, Statistic } from "antd"
+import { Row, Col } from "antd";
 import {
-  UserOutlined,
-  ShoppingCartOutlined,
-  DollarOutlined,
-} from "@ant-design/icons"
+  GroupTargetCard,
+  HierarchyCard,
+  LeaderboardCard,
+  ListCard,
+  PersonalTargetCard,
+  ProfileCard,
+} from "../components/Cards";
+
+// Dummy data
+import { recentActivities } from "../dummydata";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6 dark:text-white">
+    <div className="space-y-4">
+      {/* Dashboard Title */}
+      <h1 className="text-2xl text-center md:text-left font-bold ml-2 dark:text-white sticky top-0 z-10 bg-inherit">
         Dashboard Overview
       </h1>
+
+      {/* Row 1 */}
       <Row gutter={[16, 16]}>
-        <Col xs={24} sm={12} lg={8}>
-          <Card className="dark:bg-gray-800">
-            <Statistic
-              title="Total Users"
-              value={1234}
-              prefix={<UserOutlined />}
-            />
-          </Card>
+        <Col xs={24} lg={8}>
+          <ProfileCard />
         </Col>
-        <Col xs={24} sm={12} lg={8}>
-          <Card className="dark:bg-gray-800">
-            <Statistic
-              title="Total Orders"
-              value={789}
-              prefix={<ShoppingCartOutlined />}
-            />
-          </Card>
+        <Col xs={24} lg={8}>
+          <PersonalTargetCard />
         </Col>
-        <Col xs={24} sm={12} lg={8}>
-          <Card className="dark:bg-gray-800">
-            <Statistic
-              title="Revenue"
-              value={12345}
-              prefix={<DollarOutlined />}
-              precision={2}
-            />
-          </Card>
+        <Col xs={24} lg={8}>
+          <GroupTargetCard />
+        </Col>
+      </Row>
+
+      {/* Row 2 */}
+      <Row gutter={[16, 16]}>
+        {/* Leaderboard Cards Column */}
+        <Col xs={24} lg={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24}>
+              <LeaderboardCard />
+            </Col>
+            <Col xs={24}>
+              <LeaderboardCard />
+            </Col>
+          </Row>
+        </Col>
+        {/* Hierarchy Card Column */}
+        <Col xs={24} lg={12}>
+          <HierarchyCard />
+        </Col>
+      </Row>
+
+      {/* Row 3 */}
+      <Row gutter={[16, 16]}>
+        <Col xs={24}>
+          <ListCard title="Recent Activities" data={recentActivities} />
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

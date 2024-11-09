@@ -1,143 +1,109 @@
-import { useState, useEffect } from "react"
-import { Layout, Menu, Dropdown, Badge, theme } from "antd"
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-  DashboardOutlined,
-  BellOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "../../contexts/AuthContext"
-import ThemeToggle from "../ThemeToggle"
+import { useState, useEffect } from "react";
+import { Layout, Button, Drawer } from "antd";
+import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import Sidebar from "./Sidebar";
+import Header from "./Header/Header";
 
-const { Header, Sider, Content } = Layout
+const { Content } = Layout;
 
 const DashboardLayout = ({ children }) => {
-  const [collapsed, setCollapsed] = useState(false)
-  const { useToken } = theme
-  const { token } = useToken()
-  const navigate = useNavigate()
-  const { logout, user } = useAuth()
+  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   useEffect(() => {
-    const savedCollapsed = localStorage.getItem("sidebarCollapsed")
-    if (savedCollapsed) {
-      setCollapsed(JSON.parse(savedCollapsed))
+    const savedCollapsed = localStorage.getItem("sidebarCollapsed");
+    if (savedCollapsed && !isMobile) {
+      setCollapsed(JSON.parse(savedCollapsed));
     }
-  }, [])
+
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setCollapsed(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleCollapse = (value) => {
-    setCollapsed(value)
-    localStorage.setItem("sidebarCollapsed", JSON.stringify(value))
-  }
+    if (!isMobile) {
+      setCollapsed(value);
+      localStorage.setItem("sidebarCollapsed", JSON.stringify(value));
+    }
+  };
 
-  const userMenuItems = [
-    {
-      key: "profile",
-      label: "Profile",
-      icon: <UserOutlined />,
-    },
-    {
-      key: "settings",
-      label: "Settings",
-      icon: <SettingOutlined />,
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "logout",
-      label: "Logout",
-      icon: <LogoutOutlined />,
-      onClick: () => {
-        logout()
-        navigate("/login")
-      },
-    },
-  ]
-
-  const notifications = [
-    {
-      key: "1",
-      label: "New message received",
-    },
-    {
-      key: "2",
-      label: "System update available",
-    },
-  ]
+  const toggleMobileDrawer = () => {
+    setMobileDrawerOpen(!mobileDrawerOpen);
+  };
 
   return (
     <Layout className="min-h-screen">
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        className="dark:bg-gray-800"
-      >
-        <div className="p-4 h-8 m-4">
-          <h1 className="text-white text-lg font-bold">Dashboard</h1>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <DashboardOutlined />,
-              label: "Dashboard",
-              onClick: () => navigate("/dashboard"),
-            },
-            // Add more menu items as needed
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header className="p-0 bg-white dark:bg-gray-900 flex items-center justify-between">
-          <div className="flex items-center">
-            {collapsed ? (
-              <MenuUnfoldOutlined
-                className="text-xl p-4 cursor-pointer"
-                onClick={() => handleCollapse(false)}
-              />
-            ) : (
-              <MenuFoldOutlined
-                className="text-xl p-4 cursor-pointer"
-                onClick={() => handleCollapse(true)}
-              />
-            )}
-          </div>
-          <div className="flex items-center mr-4 gap-4">
-            <ThemeToggle />
-            <Dropdown
-              menu={{
-                items: notifications,
+      {/* Sidebar - Mobile view */}
+      {isMobile ? (
+        <>
+          <Button
+            size="large"
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={toggleMobileDrawer}
+            className="fixed top-4 left-4 z-50 bg-white dark:bg-gray dark:text-white"
+          />
+          <Drawer
+            placement="left"
+            open={mobileDrawerOpen}
+            onClose={toggleMobileDrawer}
+            closable={false}
+            width={250}
+            styles={{
+              body: {
+                padding: 0,
+              },
+            }}
+            className="dark:bg-gray"
+            // headerStyle={{ borderBottom: "none" }}
+          >
+            {/* Custom close button positioned on the right */}
+            <Button
+              icon={<CloseOutlined />}
+              onClick={toggleMobileDrawer}
+              style={{
+                position: "absolute",
+                top: 16,
+                right: 16,
+                border: "none", // No border on the button
+                boxShadow: "none", // Remove default button shadow
+                zIndex: "1000",
+                background: "none",
               }}
-              placement="bottomRight"
-              arrow
-            >
-              <Badge count={notifications.length}>
-                <BellOutlined className="text-xl cursor-pointer" />
-              </Badge>
-            </Dropdown>
-            <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-              <span className="cursor-pointer flex items-center">
-                <UserOutlined className="text-xl" />
-                <span className="ml-2">{user?.name || "User"}</span>
-              </span>
-            </Dropdown>
-          </div>
-        </Header>
-        <Content className="m-6 p-6 bg-white dark:bg-gray-900 rounded-lg">
-          {children}
-        </Content>
+            />
+            <Sidebar
+              collapsed={false}
+              onCollapse={() => {}}
+              isMobile={true}
+              onMobileClose={toggleMobileDrawer}
+            />
+          </Drawer>
+        </>
+      ) : (
+        // Sidebar - Desktop view
+        <Sidebar
+          collapsed={collapsed}
+          onCollapse={handleCollapse}
+          isMobile={false}
+        />
+      )}
+      <Layout
+        className={!isMobile ? (collapsed ? "ml-[80px]" : "ml-[250px]") : ""}
+      >
+        <Header />
+        <Content className="p-6 rounded-lg">{children}</Content>
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

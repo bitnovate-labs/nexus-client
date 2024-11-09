@@ -3,38 +3,42 @@ import {
   Routes,
   Route,
   Navigate,
-} from "react-router-dom"
-import { ConfigProvider, theme } from "antd"
-import { AuthProvider } from "./contexts/AuthContext"
-import { ThemeProvider } from "./contexts/ThemeContext"
-import Login from "./pages/Login"
-import Dashboard from "./pages/Dashboard"
-import DashboardLayout from "./components/Layout/DashboardLayout"
-import { useAuth } from "./contexts/AuthContext"
-import { useTheme } from "./contexts/ThemeContext"
-import "./index.css"
+} from "react-router-dom";
+import { ConfigProvider, theme } from "antd";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import DashboardLayout from "./components/Layout/DashboardLayout";
+import { useAuth } from "./contexts/AuthContext";
+import { useTheme } from "./contexts/ThemeContext";
+import "./index.css";
+import Agent from "./pages/Agent";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth()
+  const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (!user) {
-    return <Navigate to="/login" />
+    return <Navigate to="/login" />;
   }
 
-  return children
-}
+  return children;
+};
 
 const AppContent = () => {
-  const { isDark } = useTheme()
+  const { isDark } = useTheme();
 
   return (
     <ConfigProvider
       theme={{
         algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        token: {
+          colorPrimary: "#004DFF",
+        },
       }}
     >
       <Routes>
@@ -49,11 +53,21 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/agent"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Agent />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </ConfigProvider>
-  )
-}
+  );
+};
 
 const App = () => {
   return (
@@ -64,7 +78,7 @@ const App = () => {
         </ThemeProvider>
       </AuthProvider>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
