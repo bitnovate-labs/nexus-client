@@ -13,7 +13,11 @@ connexus-project/
 │   |__ assets/                       # Static assets like images, fonts, etc.
 │   │   └── images/
 │   ├── components/
-│   │   ├── Layout
+│   │   ├── Agent                     # ALL Agent menu related components
+│   │   │   └── Modals                # Pop up Modal components for Agent menu
+│   │   ├── Cards                     # All Cards components / Widget components here
+│   │   ├── Forms                     # Reusable Forms
+│   │   ├── Layout                    # Configure the Sidebar, Header and Body
 │   │   │   ├── Header                # ALL Header-related components here
 │   │   │   ├── DashboardLayout.jsx   # Layout for the Dashboard (Sidebar, Header, Body)
 │   │   │   └── Sidebar.jsx           # Sidebar component
@@ -23,8 +27,9 @@ connexus-project/
 │   │   ├── AuthContext.jsx
 │   │   └── ThemeContext.jsx
 │   ├── pages/                        # Dashboard pages
+│   │   ├── Agent.jsx
 │   │   ├── Dashboard.jsx
-│   │   └── Layout.jsx
+│   │   └── Login.jsx
 │   ├── App.css                       # CSS configuration for App.jsx
 │   ├── App.jsx                       # Main component (entry point)
 │   ├── index.css                     # Global CSS configuration
@@ -36,10 +41,9 @@ connexus-project/
 └── tailwind.config.js                # TailwindCSS configuration
                                             ├── Configure theme colors here:
                                                 ├── blue: DEFAULT
+                                                └── gray: DEFAULT
 
 ```
-
----
 
 ## Run the application locally:
 
@@ -50,6 +54,7 @@ npm run dev
 ## Login username and password
 
 Username: admin
+
 Password: password
 
 ## Overriding Ant Design Default Styling & Customization
