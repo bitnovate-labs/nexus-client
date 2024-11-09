@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Layout, Button, Drawer } from "antd";
-import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import { Layout, Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import Sidebar from "./Sidebar";
 import Header from "./Header/Header";
 
@@ -52,41 +52,26 @@ const DashboardLayout = ({ children }) => {
             onClick={toggleMobileDrawer}
             className="fixed top-4 left-4 z-50 bg-white dark:bg-gray dark:text-white"
           />
-          <Drawer
-            placement="left"
-            open={mobileDrawerOpen}
-            onClose={toggleMobileDrawer}
-            closable={false}
-            width={250}
-            styles={{
-              body: {
-                padding: 0,
-              },
-            }}
-            className="dark:bg-gray"
-            // headerStyle={{ borderBottom: "none" }}
+          {/* Overlay */}
+          <div
+            className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+              mobileDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+            onClick={toggleMobileDrawer}
+          />
+          {/* Sliding Panel */}
+          <div
+            className={`fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-gray z-50 transform transition-transform duration-300 ${
+              mobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
           >
-            {/* Custom close button positioned on the right */}
-            <Button
-              icon={<CloseOutlined />}
-              onClick={toggleMobileDrawer}
-              style={{
-                position: "absolute",
-                top: 16,
-                right: 16,
-                border: "none", // No border on the button
-                boxShadow: "none", // Remove default button shadow
-                zIndex: "1000",
-                background: "none",
-              }}
-            />
             <Sidebar
               collapsed={false}
-              onCollapse={() => {}}
+              onCollapse={handleCollapse}
               isMobile={true}
-              onMobileClose={toggleMobileDrawer}
+              onMobileItemClick={() => setMobileDrawerOpen(false)}
             />
-          </Drawer>
+          </div>
         </>
       ) : (
         // Sidebar - Desktop view

@@ -145,16 +145,12 @@ const Agent = () => {
     });
   });
 
+  // Table checkbox selection logic
   const rowSelection = {
     selectedRowKeys,
     onChange: (newSelectedRowKeys) => {
       setSelectedRowKeys(newSelectedRowKeys);
     },
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-    ],
   };
 
   return (
@@ -181,6 +177,7 @@ const Agent = () => {
         </Space>
       </div>
 
+      {/* Table Filters */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
         {Object.keys(searchText).map((key) => (
           <Input
@@ -195,31 +192,34 @@ const Agent = () => {
         ))}
       </div>
 
-      <div>
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={filteredData}
-          pagination={{
-            total: filteredData.length,
-            pageSize: 10,
-            position: ["bottomCenter"],
-          }}
-          className=" bg-white dark:bg-gray"
-          // scroll={{ x: true }}
-          // sticky={{
-          //   offsetHeader: 128,
-          // }}
-          scroll={{
-            x: 1020, // Sum of all column widths
-            y: "calc(100vh - 300px)", // Adjust based on header and pagination height
-          }}
-          sticky={{
-            offsetHeader: 144, // 64px header + 64px title + 16px padding
-          }}
-        />
+      {/* Table */}
+      <div className="relative">
+        <div className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <Table
+              rowSelection={rowSelection} // Row checkbox
+              columns={columns}
+              dataSource={filteredData}
+              pagination={{
+                total: filteredData.length,
+                pageSize: 10,
+                position: ["bottomCenter"],
+              }}
+              className=" bg-white dark:bg-gray "
+              scroll={{
+                x: 1020,
+                y: "calc(100vh - 300px)", // Adjust based on header and pagination height
+              }}
+              // sticky={{
+              //   offsetHeader: 144, // 64px header + 64px title + 16px padding
+              // }}
+            />
+          </div>
+        </div>
       </div>
+      {/* Add New Agent Form */}
       <AgentFormDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      {/* Agent Details Drawer */}
       <AgentDetailsDrawer
         open={detailsDrawerOpen}
         onClose={() => setDetailsDrawerOpen(false)}

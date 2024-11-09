@@ -5,7 +5,7 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
-import ThemeToggleButton from "../../ThemeToggleButton";
+import ThemeToggleButton from "./ThemeToggleButton";
 import NotificationMenu from "./NotificationMenu";
 import UserMenu from "./UserMenu";
 

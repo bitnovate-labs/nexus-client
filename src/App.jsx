@@ -39,6 +39,11 @@ const AppContent = () => {
         token: {
           colorPrimary: "#004DFF",
         },
+        components: {
+          Table: {
+            headerBg: isDark ? "#191D23" : "#FFFFFF",
+          },
+        },
       }}
     >
       <Routes>

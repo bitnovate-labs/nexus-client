@@ -57,6 +57,48 @@ Username: admin
 
 Password: password
 
+## Project Layout
+
+The Layout directory consists of:
+
+- Header directory
+- DashboardLayout.jsx
+- Sidebar.jsx
+
+Header directory - consists of ALL the components you see in the header. Header.jsx file is the main file to setup or edit the layout of the components in the header
+
+DashboardLayout.jsx - the file that lays out the structure of Sidebar, Header and the main Content body.
+
+- Inside this file, the <Content> component takes in the "children prop" which is where the files and data from the pages directory (/src/pages) are passed in to be displayed.
+
+Sidebar.jsx - to add in new menu items, find the 'menuItems' Array object (or "Navigation Menu Items" comment) and create your new menu based on:
+
+- key - the order of arrangement ("1" is positioned at the top, then "2", and so on...)
+- label - Menu Title (Ex: Dashboard, Agent Portal,..)
+- icon
+- children - in Array format
+- function (optional)
+
+* to create a Submenu:
+
+```
+Example:
+
+{
+  key: "3",
+  icon: <UserOutlined />,
+  label: "Project",
+  children: [
+    {
+      key: "sub1",
+      icon: <UserOutlined />,
+      label: "Project 1",
+    },
+  ],
+},
+
+```
+
 ## Overriding Ant Design Default Styling & Customization
 
 - Use custom CSS classes - Create a custom className and code the styling in index.css
@@ -125,4 +167,27 @@ Example:
       </Card>
     </Col>
   </Row>
+```
+
+Ant Design component styling:
+
+- Some styling can be done inline withing the Ant Design component itself but in case this cannot be done, scroll to the bottom of the Ant Design component page, look for "Design Token" and search for the "Token Name" you intend to style. Then head to - App.jsx and search for <ConfigProvider> then make your changes there.
+
+```
+Example:
+
+<ConfigProvider
+  theme={{
+    algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: "#004DFF",
+    },
+    components: {
+      Table: {
+        headerBg: isDark ? "#191D23" : "#FFFFFF",
+      },
+    },
+  }}
+
+# The guide is provided at: Design Token > Component Token - How to use?
 ```
