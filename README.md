@@ -141,14 +141,15 @@ Example:
 
 ## Ant Design Notes
 
-- Layout - Grid - <Row> (row) component
+1. Layout - Grid - "Row" component
 
-* used to create a row container that can hold multiple <Col> (column) components
-* gutter prop:
-  sets the space (or margin) between columns and rows within a <Row>
-  makes the layout more responsive, creating a balanced look with consistent spacing across different screen sizes.
+- used to create a row container that can hold multiple "Col" components
+- gutter prop:
+  sets the space (or margin) between columns and rows within a "Row"
+  making the layout more responsive, creating a balanced look with consistent spacing across different screen sizes.
 
-- Ant Design's grid system divides a row into 24 columns, setting each Col to 12 will split the row evenly.
+2. Ant Design's grid system divides a row into 24 columns, setting each Col to 12 will split the row evenly.
+
 - To configure the width distribution of the Columns, use "span".
 
 ```
@@ -169,7 +170,7 @@ Example:
   </Row>
 ```
 
-Ant Design component styling:
+3. Ant Design component styling:
 
 - Some styling can be done inline withing the Ant Design component itself but in case this cannot be done, scroll to the bottom of the Ant Design component page, look for "Design Token" and search for the "Token Name" you intend to style. Then head to - App.jsx and search for <ConfigProvider> then make your changes there.
 
