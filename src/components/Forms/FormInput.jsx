@@ -1,29 +1,49 @@
-import { Form, Input } from "antd";
+import { Form, Input, InputNumber } from "antd";
 
-const FormInput = ({
+export const FormInput = ({
   name,
   label,
-  required,
+  required = false,
+  type = "text",
   rules = [],
   placeholder,
-  type = "text",
+  min,
+  max,
   ...props
 }) => {
-  const defaultRules = required
-    ? [{ required: true, message: `Please enter ${label.toLowerCase()}` }]
-    : [];
-  const combinedRules = [...defaultRules, ...rules];
+  const getInput = () => {
+    switch (type) {
+      case "textarea":
+        return <Input.TextArea rows={4} placeholder={placeholder} {...props} />;
+      case "number":
+        return (
+          <InputNumber
+            className="w-full"
+            placeholder={placeholder}
+            min={min}
+            max={max}
+            {...props}
+          />
+        );
+      default:
+        return <Input type={type} placeholder={placeholder} {...props} />;
+    }
+  };
 
-  const InputComponent = type === "textarea" ? Input.TextArea : Input;
+  const allRules = [
+    ...(required
+      ? [{ required: true, message: `Please input ${label.toLowerCase()}!` }]
+      : []),
+    ...rules,
+  ];
 
   return (
-    <Form.Item name={name} label={label} rules={combinedRules} {...props}>
-      <InputComponent
-        placeholder={placeholder}
-        {...(type === "textarea" && { rows: 4 })}
-      />
+    <Form.Item
+      name={name}
+      label={required ? <span className="text-red-600">{label}</span> : label}
+      rules={allRules}
+    >
+      {getInput()}
     </Form.Item>
   );
 };
-
-export default FormInput;

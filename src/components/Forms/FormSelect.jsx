@@ -1,46 +1,50 @@
 import { Form, Select, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-const { Option } = Select;
-
-const FormSelect = ({
+export const FormSelect = ({
   name,
   label,
-  required,
+  required = false,
   options = [],
+  loading = false,
   onAdd,
   rules = [],
   ...props
 }) => {
-  const defaultRules = required
-    ? [{ required: true, message: `Please select ${label.toLowerCase()}` }]
-    : [];
-  const combinedRules = [...defaultRules, ...rules];
+  const allRules = [
+    ...(required
+      ? [{ required: true, message: `Please select ${label.toLowerCase()}!` }]
+      : []),
+    ...rules,
+  ];
+
+  // Filter out any options with null or undefined values
+  const validOptions = options.filter((option) => option.value != null);
 
   return (
     <Form.Item
       name={name}
-      label={label}
-      rules={combinedRules}
-      className={onAdd ? "mb-0" : ""}
-      {...props}
+      label={required ? <span className="text-red-600">{label}</span> : label}
+      rules={allRules}
     >
-      <div className={onAdd ? "flex gap-2" : ""}>
-        <Select className={onAdd ? "flex-1" : ""} {...props}>
-          {options.map((option) => (
-            <Option key={option.value || option} value={option.value || option}>
-              {option.label || option}
-            </Option>
-          ))}
-        </Select>
-        {onAdd && (
-          <Button icon={<PlusOutlined />} onClick={onAdd}>
-            Add
-          </Button>
+      <Select
+        placeholder="<< None >>"
+        options={validOptions}
+        loading={loading}
+        showSearch
+        optionFilterProp="label"
+        dropdownRender={(menu) => (
+          <div>
+            {menu}
+            {onAdd && (
+              <div className="flex justify-end p-2 border-t">
+                <Button type="text" icon={<PlusOutlined />} onClick={onAdd} />
+              </div>
+            )}
+          </div>
         )}
-      </div>
+        {...props}
+      />
     </Form.Item>
   );
 };
-
-export default FormSelect;

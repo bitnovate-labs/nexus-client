@@ -1,27 +1,18 @@
 import { Form, Switch } from "antd";
 
-const FormSwitch = ({ name, label, required, rules = [], ...props }) => {
-  const defaultRules = required
-    ? [
-        {
-          required: true,
-          message: `Please select ${label.toLowerCase()} status`,
-        },
-      ]
-    : [];
-  const combinedRules = [...defaultRules, ...rules];
-
+export const FormSwitch = ({ name, label, required = false, ...props }) => {
   return (
     <Form.Item
       name={name}
-      label={label}
+      label={required ? <span className="text-red-600">{label}</span> : label}
       valuePropName="checked"
-      rules={combinedRules}
-      {...props}
     >
-      <Switch checkedChildren="Yes" unCheckedChildren="No" />
+      <Switch
+        defaultChecked
+        checkedChildren="YES"
+        unCheckedChildren="NO"
+        {...props}
+      />
     </Form.Item>
   );
 };
-
-export default FormSwitch;

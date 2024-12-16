@@ -1,5 +1,30 @@
 import { Layout, Menu } from "antd";
-import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  BankOutlined,
+  BarChartOutlined,
+  CalculatorOutlined,
+  ClusterOutlined,
+  CreditCardOutlined,
+  DashboardOutlined,
+  DollarOutlined,
+  ExclamationCircleOutlined,
+  FileTextOutlined,
+  FundOutlined,
+  FundProjectionScreenOutlined,
+  GlobalOutlined,
+  HomeOutlined,
+  LineChartOutlined,
+  PieChartOutlined,
+  ProjectOutlined,
+  RiseOutlined,
+  SettingOutlined,
+  ShoppingOutlined,
+  SolutionOutlined,
+  StopOutlined,
+  TagOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import logoFull from "../../assets/logo-full.svg";
@@ -12,59 +37,201 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
   const location = useLocation();
   const { isDark } = useTheme();
 
-  // Map paths to menu keys
-  const pathToKey = {
-    "/dashboard": "1",
-    "/agent": "2",
-  };
-
-  const handleMenuClick = (path) => {
-    navigate(path);
-    // Only trigger mobile close if it's a mobile view and there's a close handler
-    if (isMobile && onMobileItemClick) {
-      onMobileItemClick();
-    }
-  };
-
-  // Get the active key based on current path
-  const getActiveKey = () => {
-    return pathToKey[location.pathname] || "1"; // '1' is the default 'Dashboard' page view
+  // Get the base path for active menu highlighting
+  const getActivePath = (pathname) => {
+    const basePath = pathname.split("/")[1];
+    return `/${basePath}`;
   };
 
   // Navigation Menu Items
   const menuItems = [
     {
-      key: "1",
+      key: "/dashboard",
       icon: <DashboardOutlined />,
       label: "Dashboard",
       onClick: () => handleMenuClick("/dashboard"),
     },
     {
-      key: "2",
-      icon: <UserOutlined />,
-      label: "Agent Portal",
-      onClick: () => handleMenuClick("/agent"),
+      key: "/developers",
+      icon: <HomeOutlined />,
+      label: "Developers",
+      onClick: () => handleMenuClick("/developers"),
     },
     {
-      key: "3",
+      key: "/projects",
+      icon: <ProjectOutlined />,
+      label: "Projects",
+      onClick: () => handleMenuClick("/projects"),
+    },
+    {
+      key: "/agents",
       icon: <UserOutlined />,
-      label: "Project Center",
-      // onClick: () => handleMenuClick("/project_center"), // TODO: Create "Project Center page"
+      label: "Agents",
+      onClick: () => handleMenuClick("/agents"),
+    },
+    {
+      key: "/sales",
+      icon: <ShoppingOutlined />,
+      label: "Sales",
+      onClick: () => handleMenuClick("/sales"),
+    },
+    {
+      key: "/finance",
+      icon: <DollarOutlined />,
+      label: "Finance",
       children: [
         {
-          key: "sub1",
-          icon: <UserOutlined />,
-          label: "Sub Project 1",
+          key: "/invoice",
+          icon: <FileTextOutlined />,
+          label: "Invoice",
+          onClick: () => handleMenuClick("/invoice"),
         },
         {
-          key: "sub2",
+          key: "/receipt",
+          icon: <FileTextOutlined />,
+          label: "Receipt",
+          onClick: () => handleMenuClick("/receipt"),
+        },
+        {
+          key: "/credit-note",
+          icon: <CreditCardOutlined />,
+          label: "Credit Note",
+          onClick: () => handleMenuClick("/credit-note"),
+        },
+        {
+          key: "/debit-note",
+          icon: <CreditCardOutlined />,
+          label: "Debit Note",
+          onClick: () => handleMenuClick("/debit-note"),
+        },
+      ],
+    },
+    {
+      key: "/reports",
+      icon: <BarChartOutlined />,
+      label: "Reports",
+      children: [
+        {
+          key: "/reports/commission_summary",
+          icon: <PieChartOutlined />,
+          label: "Commission Summary",
+          onClick: () => handleMenuClick("/reports/commission_summary"),
+        },
+        {
+          key: "/reports/commission_outstanding",
+          icon: <ExclamationCircleOutlined />,
+          label: "Commission Outstanding",
+          onClick: () => handleMenuClick("/reports/commission_outstanding"),
+        },
+        {
+          key: "/reports/personal_sales",
           icon: <UserOutlined />,
-          label: "Sub Project 2",
+          label: "Personal Sales",
+          onClick: () => handleMenuClick("/reports/personal_sales"),
+        },
+        {
+          key: "/reports/group_sales",
+          icon: <TeamOutlined />,
+          label: "Group Sales",
+          onClick: () => handleMenuClick("/reports/group_sales"),
+        },
+        {
+          key: "/reports/project_personal_sales",
+          icon: <FundOutlined />,
+          label: "Project Personal Sales",
+          onClick: () => handleMenuClick("/reports/project_personal_sales"),
+        },
+        {
+          key: "/reports/project_total_sales",
+          icon: <LineChartOutlined />,
+          label: "Project Total Sales",
+          onClick: () => handleMenuClick("/reports/project_total_sales"),
+        },
+        {
+          key: "/reports/withholding_tax",
+          icon: <CalculatorOutlined />,
+          label: "Withholding Tax",
+          onClick: () => handleMenuClick("/reports/withholding_tax"),
+        },
+        {
+          key: "/reports/agent_hierarchy",
+          icon: <ClusterOutlined />,
+          label: "Agent Hierarchy",
+          onClick: () => handleMenuClick("/reports/agent_hierarchy"),
+        },
+        {
+          key: "/reports/agent_promotion",
+          icon: <RiseOutlined />,
+          label: "Agent Promotion",
+          onClick: () => handleMenuClick("/reports/agent_promotion"),
+        },
+        {
+          key: "/reports/inactive_agent",
+          icon: <StopOutlined />,
+          label: "Inactive Agent",
+          onClick: () => handleMenuClick("/reports/inactive_agent"),
+        },
+        {
+          key: "/reports/actual_personal_report",
+          icon: <SolutionOutlined />,
+          label: "Actual Personal Report",
+          onClick: () => handleMenuClick("/reports/actual_personal_report"),
+        },
+        {
+          key: "/reports/actual_group_sales",
+          icon: <FundProjectionScreenOutlined />,
+          label: "Actual Group Sales",
+          onClick: () => handleMenuClick("/reports/actual_group_sales"),
+        },
+      ],
+    },
+    {
+      key: "/settings",
+      icon: <SettingOutlined />,
+      label: "Settings",
+      children: [
+        {
+          key: "/banks",
+          icon: <BankOutlined />,
+          label: "Banks",
+          onClick: () => handleMenuClick("/banks"),
+        },
+        {
+          key: "/designations",
+          icon: <TagOutlined />,
+          label: "Designations",
+          onClick: () => handleMenuClick("/designations"),
+        },
+        {
+          key: "/user-roles",
+          icon: <TeamOutlined />,
+          label: "User Account Role",
+          onClick: () => handleMenuClick("/user-roles"),
+        },
+        {
+          key: "/user-account",
+          icon: <UserOutlined />,
+          label: "User Account",
+          onClick: () => handleMenuClick("/user-account"),
+        },
+        {
+          key: "/states",
+          icon: <GlobalOutlined />,
+          label: "States",
+          onClick: () => handleMenuClick("/states"),
         },
       ],
     },
     // Add more menu items here!!!
   ];
+
+  const handleMenuClick = (e) => {
+    navigate(e.key);
+    // Only trigger mobile close if it's a mobile view and there's a close handler
+    if (isMobile && onMobileItemClick) {
+      onMobileItemClick();
+    }
+  };
 
   return (
     <Sider
@@ -98,9 +265,10 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
       <Menu
         theme={isDark ? "dark" : "light"}
         mode="inline"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["/"]}
         items={menuItems}
-        selectedKeys={[getActiveKey()]}
+        selectedKeys={[getActivePath(location.pathname)]}
+        onClick={handleMenuClick}
       />
     </Sider>
   );

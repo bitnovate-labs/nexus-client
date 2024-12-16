@@ -1,0 +1,183 @@
+import { useState } from "react";
+import { Table, Button, Input, Space, Tag, Dropdown, message } from "antd";
+import {
+  PlusOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USERS } from "../../graphql/queries/users";
+import { DELETE_USERS } from "../../graphql/mutations/users";
+import CreateUserModal from "./components/CreateUserModal";
+
+const UserAccount = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [editingUser, setEditingUser] = useState(null);
+  const { data, loading } = useQuery(GET_USERS);
+  const [deleteUsers] = useMutation(DELETE_USERS, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
+
+  const handleDelete = async () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning("Please select items to delete");
+      return;
+    }
+    try {
+      await deleteUsers({ variables: { ids: selectedRowKeys } });
+      message.success(`Deleted ${selectedRowKeys.length} items`);
+      setSelectedRowKeys([]);
+    } catch (error) {
+      message.error("Failed to delete users");
+      console.log("Delete error, handleDelete, UserAccount.jsx", error);
+    }
+  };
+
+  const moreActionsItems = [
+    {
+      key: "edit",
+      label: "Edit Selection",
+      icon: <EditOutlined />,
+      onClick: () => {
+        if (selectedRowKeys.length !== 1) {
+          message.warning("Please select one item to edit");
+          return;
+        }
+        const userToEdit = users.find((user) => user.id === selectedRowKeys[0]);
+        setEditingUser(userToEdit);
+        setIsModalVisible(true);
+      },
+    },
+    {
+      key: "delete",
+      label: "Delete Selection",
+      icon: <DeleteOutlined />,
+      onClick: handleDelete,
+    },
+  ];
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      // render: (text, record) => (
+      //   <Button
+      //     type="link"
+      //     onClick={() => {
+      //       setEditingUser(record);
+      //       setIsModalVisible(true);
+      //     }}
+      //     className="!p-0 !h-auto text-left"
+      //   >
+      //     {text}
+      //   </Button>
+      // ),
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+      filters: [
+        { text: "Admin", value: "ADMIN" },
+        { text: "Manager", value: "MANAGER" },
+        { text: "User", value: "USER" },
+      ],
+      onFilter: (value, record) => record.role === value,
+    },
+    {
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Status",
+      dataIndex: "active",
+      key: "active",
+      render: (active) => (
+        <Tag color={active ? "success" : "error"}>
+          {active ? "Active" : "Inactive"}
+        </Tag>
+      ),
+    },
+  ];
+
+  const users = data?.users || [];
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+      user.username?.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys) => {
+      setSelectedRowKeys(newSelectedRowKeys);
+    },
+  };
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4 md:flex md:justify-between items-center lg:mb-6 ">
+        <h1 className="text-2xl font-bold">User Account</h1>
+        <Space>
+          <Input
+            placeholder="Search users"
+            prefix={<SearchOutlined />}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => {
+              setEditingUser(null);
+              setIsModalVisible(true);
+            }}
+          >
+            New
+          </Button>
+          <Dropdown
+            menu={{ items: moreActionsItems }}
+            trigger={["hover", "click"]}
+            placement="bottomRight"
+          >
+            <Button>More Actions</Button>
+          </Dropdown>
+        </Space>
+      </div>
+
+      <div className="rounded-lg overflow-hidden shadow-lg">
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={filteredUsers}
+          loading={loading}
+          rowKey="id"
+          pagination={{
+            total: filteredUsers.length,
+            pageSize: 10,
+            position: ["bottomCenter"],
+            showTotal: (total) => `${total} record(s)`,
+          }}
+          className="bg-white dark:bg-gray"
+        />
+      </div>
+
+      <CreateUserModal
+        visible={isModalVisible}
+        onCancel={() => {
+          setIsModalVisible(false);
+          setEditingUser(null);
+        }}
+        user={editingUser}
+      />
+    </div>
+  );
+};
+
+export default UserAccount;

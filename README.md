@@ -192,3 +192,12 @@ Example:
 
 # The guide is provided at: Design Token > Component Token - How to use?
 ```
+
+## Prop Naming Conventions
+
+- isModalVisible, setIsModalVisible
+- open, onClose
+
+## ANT DESIGN
+
+- onFinish prop (for Modal) -> triggers Save/Submit button when Enter is pressed

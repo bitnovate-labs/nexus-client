@@ -1,21 +1,29 @@
+import { useState } from "react";
 import {
+  LockOutlined,
   // UserOutlined,
   // SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../contexts/AuthContext";
-import ThemeToggleButton from "./ThemeToggleButton";
-import NotificationMenu from "./NotificationMenu";
-import UserMenu from "./UserMenu";
+import { useAuth } from "../../../hooks/useAuth";
+import ThemeToggleButton from "./components/ThemeToggleButton";
+import NotificationMenu from "./components/NotificationMenu";
+import UserMenu from "./components/UserMenu";
+import ChangePasswordModal from "../../modals/ChangePasswordModal";
 
 const HeaderActions = () => {
-  const navigate = useNavigate();
+  const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
+  };
+
+  const handleChangePassword = () => {
+    setIsChangePasswordVisible(true);
   };
 
   const userMenuItems = [
@@ -34,6 +42,12 @@ const HeaderActions = () => {
     //   type: "divider",
     // },
     {
+      key: "change-password",
+      label: "Change Password",
+      icon: <LockOutlined />,
+      onClick: handleChangePassword,
+    },
+    {
       key: "logout",
       label: "Logout",
       icon: <LogoutOutlined />,
@@ -48,7 +62,11 @@ const HeaderActions = () => {
       {/* Notification Icon */}
       <NotificationMenu />
       {/* User Profile Icon */}
-      <UserMenu items={userMenuItems} userName={user?.name} />
+      <UserMenu items={userMenuItems} userName={user?.username} />
+      <ChangePasswordModal
+        visible={isChangePasswordVisible}
+        onCancel={() => setIsChangePasswordVisible(false)}
+      />
     </div>
   );
 };
