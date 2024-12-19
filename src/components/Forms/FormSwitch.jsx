@@ -1,6 +1,6 @@
 import { Form, Switch } from "antd";
 
-const FormSwitch = ({ name, label, required = false, ...props }) => {
+export const FormSwitch = ({ name, label, required = false, ...props }) => {
   return (
     <Form.Item
       name={name}
@@ -16,5 +16,3 @@ const FormSwitch = ({ name, label, required = false, ...props }) => {
     </Form.Item>
   );
 };
-
-export default FormSwitch;
