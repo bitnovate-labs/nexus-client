@@ -3,9 +3,13 @@ import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 
 const uploadLink = createUploadLink({
-  uri: "http://localhost:4000/graphql",
-  // uri: "http://46.137.202.243/graphql",
+  // uri: "http://localhost:4000/graphql",
+  uri: import.meta.env.VITE_GRAPHQL_URI,
+  // uri: "http://nexus-server.ap-southeast-1.elasticbeanstalk.com/graphql",
   credentials: "include",
+  headers: {
+    apikey: import.meta.env.VITE_SUPABASE_ANON_KEY, // Replace with your Supabase anon key
+  },
 });
 
 const authLink = setContext((_, { headers }) => {
