@@ -12,8 +12,8 @@ export default defineConfig({
   base: "./",
   resolve: {
     alias: {
-      "@forms": path.resolve(__dirname, "components/forms"),
-      "@modals": path.resolve(__dirname, "components/modals"),
+      "@forms": path.resolve(__dirname, "./src/components/forms"),
+      "@modals": path.resolve(__dirname, "./src/components/modals"),
     },
   },
   css: {
