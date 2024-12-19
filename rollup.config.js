@@ -8,7 +8,12 @@ export default {
   },
   plugins: [
     alias({
-      entries: [{ find: "components", replacement: ".src/components" }],
+      entries: [
+        {
+          find: "components",
+          replacement: "../../../components || ../../../../components",
+        },
+      ],
     }),
   ],
 };
