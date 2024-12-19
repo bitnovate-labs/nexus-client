@@ -1,22 +1,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    {
-      name: "log-resolve",
-      resolveId(source) {
-        console.log("Resolving:", source);
-        return null; // Proceed with default resolution
-      },
-    },
-  ],
+  plugins: [react()],
   css: {
     postcss: "./postcss.config.js",
   },
   resolve: {
     extensions: [".js", ".jsx"], // Ensure .jsx is included
+    alias: {
+      // Define an alias for the 'components' directory
+      "@components": path.resolve(__dirname, "src/components"),
+      // Define an alias for the 'pages' directory (if you have one)
+      "@pages": path.resolve(__dirname, "src/pages"),
+      // You can add more aliases as needed
+    },
   },
 });
