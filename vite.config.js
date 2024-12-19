@@ -9,6 +9,7 @@ export default defineConfig({
     alias({
       entries: [
         { find: "forms", replacement: "../../../components/forms" },
+        // { find: "modals", replacement: "../../../components/modals" },
       ],
     }),
   ],

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Form, message } from "antd";
-import { FormInput, FormSwitch } from "../../../components/forms";
+import { FormInput, FormSwitch } from "forms";
 import BaseFormModal from "../../../components/modals/BaseFormModal";
 import { useBanks } from "../../../hooks/useBanks";
 
