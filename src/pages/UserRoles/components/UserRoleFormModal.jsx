@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Form, message } from "antd";
-import { FormInput, FormSwitch } from "../../../components/forms";
-import BaseFormModal from "../../../components/modals/BaseFormModal";
+import { FormInput, FormSwitch } from "@components/forms";
+import BaseFormModal from "@components/modals/BaseFormModal";
 import { useUserRoles } from "../../../hooks/useUserRoles";
 
 const UserRoleFormModal = ({ visible, onCancel, userRole }) => {
