@@ -11,7 +11,7 @@ export default {
       entries: [
         {
           find: "components",
-          replacement: "../../../components || ../../../../components",
+          replacement: "../../../components",
         },
       ],
     }),
