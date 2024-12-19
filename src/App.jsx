@@ -6,7 +6,7 @@ import "./index.css";
 
 import SessionExpirationHandler from "./components/auth/SessionExpirationHandler.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import Layout from "./components/layout/Layout.jsx";
+import Layout from "./components/layouts/Layout.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Agent from "./pages/Agent/Agent.jsx";
