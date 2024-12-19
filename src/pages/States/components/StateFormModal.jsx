@@ -1,7 +1,8 @@
 import React from "react";
 import { Form, message } from "antd";
-import { FormInput, FormSelect } from "@forms";
-import BaseFormModal from "@modals/BaseFormModal";
+import { FormInput } from "../../../components/forms/FormInput";
+import { FormSelect } from "../../../components/forms/FormSelect";
+import BaseFormModal from "../../../components/modals/BaseFormModal";
 import { useStates } from "../../../hooks/useStates";
 
 const StateFormModal = ({ open, onClose, state }) => {

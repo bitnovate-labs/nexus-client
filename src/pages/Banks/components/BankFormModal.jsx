@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Form, message } from "antd";
-import { FormInput, FormSwitch } from "@forms";
-import BaseFormModal from "@modals/BaseFormModal";
+import { FormInput } from "../../../components/forms/FormInput";
+import { FormSwitch } from "../../../components/forms/FormSwitch";
+import BaseFormModal from "../../../components/modals/BaseFormModal";
 import { useBanks } from "../../../hooks/useBanks";
 
 const BankFormModal = ({ open, onClose, bank }) => {
