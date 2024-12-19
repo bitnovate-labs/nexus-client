@@ -8,8 +8,8 @@ export default defineConfig({
     react(),
     alias({
       entries: [
-        { find: "forms", replacement: "../../../components/forms" },
-        { find: "modals", replacement: "../../../components/modals" },
+        { find: "@forms", replacement: "../../../components/forms" },
+        { find: "@modals", replacement: "../../../components/modals" },
       ],
     }),
   ],
