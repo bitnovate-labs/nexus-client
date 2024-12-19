@@ -1,4 +1,4 @@
-export { FormInput } from "./FormInput";
-export { FormSelect } from "./FormSelect";
-export { FormSwitch } from "./FormSwitch";
-export { FormDatePicker } from "./FormDatePicker";
+export { default as FormInput } from "./FormInput";
+export { default as FormSelect } from "./FormSelect";
+export { default as FormSwitch } from "./FormSwitch";
+export { default as FormDatePicker } from "./FormDatePicker";
