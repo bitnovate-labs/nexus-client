@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, message } from "antd";
-import { FormInput, FormSwitch } from "@components/forms";
-import BaseFormModal from "@components/modals/BaseFormModal";
+import { FormInput, FormSwitch } from "../../../components/forms";
+import BaseFormModal from "../../../components/modals/BaseFormModal";
 import { useDesignations } from "../../../hooks/useDesignations";
 
 const DesignationFormModal = ({ open, onClose, designation }) => {
