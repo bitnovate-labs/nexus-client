@@ -9,8 +9,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@forms": "/src/components/forms",
-      "@modals": "/src/components/modals",
+      "@components/forms": "/src/components/forms",
+      "@components/modals": "/src/components/modals",
     },
   },
 });

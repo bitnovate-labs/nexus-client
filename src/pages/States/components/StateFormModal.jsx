@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "antd";
-import { FormInput, FormSelect } from "@forms";
-import BaseFormModal from "@modals/BaseFormModal";
+import { FormInput, FormSelect } from "@components/forms";
+import BaseFormModal from "@components/modals/BaseFormModal";
 import { useStates } from "../../../hooks/useStates";
 import { message } from "antd";
 

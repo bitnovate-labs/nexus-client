@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Form } from "antd";
-import { FormInput, FormSwitch } from "@forms";
-import BaseFormModal from "@modals/BaseFormModal";
+import { FormInput, FormSwitch } from "@components/forms";
+import BaseFormModal from "@components/modals/BaseFormModal";
 import { useUserRoles } from "../../../hooks/useUserRoles";
 import { message } from "antd";
 
