@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Form, message } from "antd";
-import FormInput from "../../../../components/forms/FormInput";
-import FormSelect from "../../../../components/forms/FormSelect";
-import FormSwitch from "../../../../components/forms/FormSwitch";
+import {
+  FormInput,
+  FormSelect,
+  FormSwitch,
+} from "../../../../components/forms";
 import BaseFormModal from "../../../../components/modals/BaseFormModal";
 import { useProjects } from "../../../../hooks/useProjects";
 import { useDevelopers } from "../../../../hooks/useDevelopers";

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, message } from "antd";
-import FormInput from "../../../components/forms/FormInput";
-import FormSwitch from "../../../components/forms/FormSwitch";
-import FormSelect from "../../../components/forms/FormSelect";
+import { FormInput, FormSelect, FormSwitch } from "../../../components/forms";
 import BaseFormModal from "../../../components/modals/BaseFormModal";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER, UPDATE_USER } from "../../../graphql/mutations/users";
