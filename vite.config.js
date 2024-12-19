@@ -14,8 +14,9 @@ export default defineConfig({
       // Define an alias for the 'components' directory
       "@components": path.resolve(__dirname, "src/components"),
       // Define an alias for the 'pages' directory (if you have one)
+      "@graphql": path.resolve(__dirname, "src/graphql"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
       "@pages": path.resolve(__dirname, "src/pages"),
-      // You can add more aliases as needed
     },
   },
 });
