@@ -7,11 +7,4 @@ export default defineConfig({
   css: {
     postcss: "./postcss.config.js",
   },
-  resolve: {
-    alias: {
-      "@components": "/src/components",
-      "@hooks": "/src/hooks",
-      "@util": "/src/util",
-    },
-  },
 });
