@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
+import InputForm from "@components/forms/InputForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useDevelopers } from "../../../hooks/useDevelopers";
 
@@ -44,33 +44,33 @@ const DeveloperFormModal = ({ open, onClose, developer }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         required
         placeholder="Enter developer name"
       />
 
-      <FormInput
+      <InputForm
         name="registrationNo"
         label="Registration No"
         placeholder="Enter registration number"
       />
 
-      <FormInput
+      <InputForm
         name="address"
         label="Address"
         type="textarea"
         placeholder="Enter address"
       />
 
-      <FormInput
+      <InputForm
         name="contactPerson"
         label="Contact Person"
         placeholder="Enter contact person name"
       />
 
-      <FormInput
+      <InputForm
         name="contactNo"
         label="Contact No"
         placeholder="Enter contact number"

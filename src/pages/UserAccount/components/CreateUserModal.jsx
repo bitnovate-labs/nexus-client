@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSelect from "@components/forms/FormSelect";
-import FormSwitch from "@components/forms/FormSwitch";
+import InputForm from "@components/forms/InputForm";
+import SelectForm from "@components/forms/SelectForm";
+import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER, UPDATE_USER } from "../../../graphql/mutations/users";
@@ -79,9 +79,9 @@ const CreateUserModal = ({ visible, onCancel, user }) => {
         form={form}
         loading={createLoading || updateLoading}
       >
-        <FormInput name="name" label="Name" required placeholder="Enter name" />
+        <InputForm name="name" label="Name" required placeholder="Enter name" />
 
-        <FormInput
+        <InputForm
           name="username"
           label="Username"
           required
@@ -89,7 +89,7 @@ const CreateUserModal = ({ visible, onCancel, user }) => {
         />
 
         {!user && (
-          <FormInput
+          <InputForm
             name="password"
             label="Password"
             required
@@ -98,13 +98,13 @@ const CreateUserModal = ({ visible, onCancel, user }) => {
           />
         )}
 
-        <FormInput
+        <InputForm
           name="mobile"
           label="Mobile"
           placeholder="Enter mobile number"
         />
 
-        <FormInput
+        <InputForm
           name="email"
           label="Email"
           required
@@ -112,7 +112,7 @@ const CreateUserModal = ({ visible, onCancel, user }) => {
           placeholder="Enter email"
         />
 
-        <FormSelect
+        <SelectForm
           name="role"
           label="User Account Role"
           options={roleOptions}
@@ -121,7 +121,7 @@ const CreateUserModal = ({ visible, onCancel, user }) => {
           onAdd={() => setRoleModalVisible(true)}
         />
 
-        <FormSwitch name="active" label="Active" />
+        <SwitchForm name="active" label="Active" />
       </BaseFormModal>
 
       <UserRoleFormModal

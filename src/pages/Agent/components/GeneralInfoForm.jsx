@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import FormInput from "@components/forms/FormInput";
-import FormSelect from "@components/forms/FormSelect";
-import FormSwitch from "@components/forms/FormSwitch";
-import FormDatePicker from "@components/forms/FormDatePicker";
+import InputForm from "@components/forms/InputForm";
+import SelectForm from "@components/forms/SelectForm";
+import SwitchForm from "@components/forms/SwitchForm";
+import DatePickerForm from "@components/forms/DatePickerForm";
 import DesignationFormModal from "../../Designation/components/DesignationFormModal";
 import AgentFormDrawer from "./AgentFormDrawer";
 import { useBranches } from "../../../hooks/useBranches";
@@ -50,7 +50,7 @@ const GeneralInfoForm = () => {
 
   return (
     <div className="space-y-4">
-      <FormSelect
+      <SelectForm
         name="branch"
         label="Branch"
         required
@@ -58,7 +58,7 @@ const GeneralInfoForm = () => {
         loading={branchesLoading}
       />
 
-      <FormSelect
+      <SelectForm
         name="leader"
         label="Leader"
         options={agentOptions}
@@ -69,7 +69,7 @@ const GeneralInfoForm = () => {
         onAdd={() => setUplineDrawerOpen(true)}
       />
 
-      <FormSelect
+      <SelectForm
         name="recruiter"
         label="Recruiter"
         options={agentOptions}
@@ -79,7 +79,7 @@ const GeneralInfoForm = () => {
         placeholder="Select recruiter"
       />
 
-      <FormSelect
+      <SelectForm
         name="designation"
         label="Designation"
         required
@@ -88,7 +88,7 @@ const GeneralInfoForm = () => {
         onAdd={() => setDesignationModalOpen(true)}
       />
 
-      <FormInput
+      <InputForm
         name="commissionPercentage"
         label="Commission %"
         type="number"
@@ -105,23 +105,23 @@ const GeneralInfoForm = () => {
         ]}
       />
 
-      <FormDatePicker name="joinDate" label="Join Date" required />
+      <DatePickerForm name="joinDate" label="Join Date" required />
 
-      <FormDatePicker name="resignDate" label="Resign Date" />
+      <DatePickerForm name="resignDate" label="Resign Date" />
 
-      <FormInput
+      <InputForm
         name="incomeTaxNo"
         label="Income Tax No"
         placeholder="Enter income tax number"
       />
 
-      <FormSwitch name="withholdingTax" label="Withholding Tax" required />
+      <SwitchForm name="withholdingTax" label="Withholding Tax" required />
 
-      <FormSwitch name="leaderboard" label="Leaderboard" required />
+      <SwitchForm name="leaderboard" label="Leaderboard" required />
 
-      <FormSwitch name="active" label="Active" required />
+      <SwitchForm name="active" label="Active" required />
 
-      <FormInput
+      <InputForm
         name="remark"
         label="Remark"
         type="textarea"

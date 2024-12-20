@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSelect from "@components/forms/FormSelect";
+import InputForm from "@components/forms/InputForm";
+import SelectForm from "@components/forms/SelectForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useStates } from "../../../hooks/useStates";
 
@@ -51,21 +51,21 @@ const StateFormModal = ({ open, onClose, state }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         required
         placeholder="Enter state name"
       />
 
-      <FormInput
+      <InputForm
         name="code"
         label="Code"
         required
         placeholder="Enter state code"
       />
 
-      <FormSelect
+      <SelectForm
         name="country"
         label="Country"
         required

@@ -1,7 +1,7 @@
 import { Form, Select, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-const FormSelect = ({
+const SelectForm = ({
   name,
   label,
   required = false,
@@ -49,4 +49,4 @@ const FormSelect = ({
   );
 };
 
-export default FormSelect;
+export default SelectForm;

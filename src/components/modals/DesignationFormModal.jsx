@@ -1,5 +1,5 @@
 import { Form } from "antd";
-import { FormInput, FormSwitch } from "../forms";
+import { InputForm, SwitchForm } from "../forms";
 import BaseFormModal from "./BaseFormModal";
 
 const DesignationFormModal = ({ open, onClose }) => {
@@ -24,9 +24,9 @@ const DesignationFormModal = ({ open, onClose }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput name="name" label="Name" required />
+      <InputForm name="name" label="Name" required />
 
-      <FormInput
+      <InputForm
         name="rank"
         label="Rank"
         type="number"
@@ -34,7 +34,7 @@ const DesignationFormModal = ({ open, onClose }) => {
         rules={[{ type: "number", min: 1, message: "Rank must be at least 1" }]}
       />
 
-      <FormSwitch name="active" label="Active" />
+      <SwitchForm name="active" label="Active" />
     </BaseFormModal>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FormInput from "@components/forms/FormInput";
-import FormSelect from "@components/forms/FormSelect";
+import InputForm from "@components/forms/InputForm";
+import SelectForm from "@components/forms/SelectForm";
 import BankFormModal from "../../Banks/components/BankFormModal";
 import { useBanks } from "../../../hooks/useBanks";
 
@@ -26,26 +26,26 @@ const BankingInfoForm = () => {
 
   return (
     <div className="space-y-4">
-      <FormInput
+      <InputForm
         name="payeeName"
         label="Payee Name"
         placeholder="Enter payee name"
       />
 
-      <FormInput
+      <InputForm
         name="payeeNric"
         label="Payee NRIC/Passport"
         placeholder="Enter NRIC/Passport number"
       />
 
-      <FormSelect
+      <SelectForm
         name="payeeNricType"
         label="NRIC Type"
         options={nricTypeOptions}
         placeholder="Select NRIC type"
       />
 
-      <FormSelect
+      <SelectForm
         name="bank"
         label="Bank"
         options={bankOptions}
@@ -55,13 +55,13 @@ const BankingInfoForm = () => {
         allowClear
       />
 
-      <FormInput
+      <InputForm
         name="bankAccountNo"
         label="Bank Account No"
         placeholder="Enter bank account number"
       />
 
-      <FormInput
+      <InputForm
         name="swiftCode"
         label="Swift Code"
         placeholder="Enter SWIFT code"

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSwitch from "@components/forms/FormSwitch";
+import InputForm from "@components/forms/InputForm";
+import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useBanks } from "../../../hooks/useBanks";
 
@@ -51,20 +51,20 @@ const BankFormModal = ({ open, onClose, bank }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         placeholder="Enter bank name"
         required
       />
 
-      <FormInput
+      <InputForm
         name="swiftCode"
         label="SWIFT Code"
         placeholder="Enter SWIFT code"
       />
 
-      <FormSwitch name="active" label="Active" required />
+      <SwitchForm name="active" label="Active" required />
     </BaseFormModal>
   );
 };

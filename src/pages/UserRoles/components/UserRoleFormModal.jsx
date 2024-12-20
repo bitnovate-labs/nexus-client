@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSwitch from "@components/forms/FormSwitch";
+import InputForm from "@components/forms/InputForm";
+import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useUserRoles } from "../../../hooks/useUserRoles";
 
@@ -52,21 +52,21 @@ const UserRoleFormModal = ({ visible, onCancel, userRole }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput
+      <InputForm
         name="code"
         label="Code"
         required
         placeholder="Enter role code"
       />
 
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         required
         placeholder="Enter role name"
       />
 
-      <FormSwitch name="active" label="Active" required />
+      <SwitchForm name="active" label="Active" required />
     </BaseFormModal>
   );
 };

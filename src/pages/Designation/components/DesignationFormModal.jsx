@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSwitch from "@components/forms/FormSwitch";
+import InputForm from "@components/forms/InputForm";
+import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useDesignations } from "../../../hooks/useDesignations";
 
@@ -51,14 +51,14 @@ const DesignationFormModal = ({ open, onClose, designation }) => {
       onSubmit={handleSubmit}
       form={form}
     >
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         required
         placeholder="Enter designation name"
       />
 
-      <FormInput
+      <InputForm
         name="rank"
         label="Rank"
         type="number"
@@ -67,7 +67,7 @@ const DesignationFormModal = ({ open, onClose, designation }) => {
         placeholder="Enter rank number"
       />
 
-      <FormSwitch name="active" label="Active" required />
+      <SwitchForm name="active" label="Active" required />
     </BaseFormModal>
   );
 };

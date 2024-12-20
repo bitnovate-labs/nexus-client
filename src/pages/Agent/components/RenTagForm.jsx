@@ -1,18 +1,18 @@
-import FormInput from "@components/forms/FormInput";
-import FormDatePicker from "@components/forms/FormDatePicker";
+import InputForm from "@components/forms/InputForm";
+import DatePickerForm from "@components/forms/DatePickerForm";
 
 const RenTagForm = () => {
   return (
     <div className="space-y-4">
-      <FormInput name="renNo" label="REN No" placeholder="Enter REN number" />
+      <InputForm name="renNo" label="REN No" placeholder="Enter REN number" />
 
-      <FormInput
+      <InputForm
         name="renLicense"
         label="REN License"
         placeholder="Enter REN license"
       />
 
-      <FormDatePicker
+      <DatePickerForm
         name="renExpiredDate"
         label="REN Expired Date"
         allowClear

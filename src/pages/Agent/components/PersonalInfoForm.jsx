@@ -1,29 +1,29 @@
-import FormInput from "@components/forms/FormInput";
+import InputForm from "@components/forms/InputForm";
 
 const PersonalInfoForm = () => {
   return (
     <div className="space-y-4">
-      <FormInput
+      <InputForm
         name="name"
         label="Name"
         required
         placeholder="(as in NRIC/Passport)"
       />
 
-      <FormInput name="displayName" label="Display Name" required />
+      <InputForm name="displayName" label="Display Name" required />
 
-      <FormInput name="nricPassport" label="NRIC/Passport" />
+      <InputForm name="nricPassport" label="NRIC/Passport" />
 
-      <FormInput
+      <InputForm
         name="email"
         label="Email"
         required
         rules={[{ type: "email", message: "Please enter a valid email" }]}
       />
 
-      <FormInput name="mobile" label="Mobile" required />
+      <InputForm name="mobile" label="Mobile" required />
 
-      <FormInput name="address" label="Address" type="textarea" />
+      <InputForm name="address" label="Address" type="textarea" />
     </div>
   );
 };

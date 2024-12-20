@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Form, message } from "antd";
-import FormInput from "@components/forms/FormInput";
-import FormSelect from "@components/forms/FormSelect";
-import FormSwitch from "@components/forms/FormSwitch";
+import InputForm from "@components/forms/InputForm";
+import SelectForm from "@components/forms/SelectForm";
+import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useProjects } from "../../../../hooks/useProjects";
 import { useDevelopers } from "../../../../hooks/useDevelopers";
@@ -79,7 +79,7 @@ const ProjectFormModal = ({ open, onClose, project }) => {
         onSubmit={handleSubmit}
         form={form}
       >
-        <FormSelect
+        <SelectForm
           name="company"
           label="Company"
           required
@@ -90,14 +90,14 @@ const ProjectFormModal = ({ open, onClose, project }) => {
           placeholder="Select company"
         />
 
-        <FormInput
+        <InputForm
           name="name"
           label="Name"
           required
           placeholder="Enter project name"
         />
 
-        <FormSelect
+        <SelectForm
           name="developerId"
           label="Developer"
           required
@@ -107,9 +107,9 @@ const ProjectFormModal = ({ open, onClose, project }) => {
           placeholder="Select developer"
         />
 
-        <FormSwitch name="developerPayTax" label="Developer Pay Tax" />
+        <SwitchForm name="developerPayTax" label="Developer Pay Tax" />
 
-        <FormSelect
+        <SelectForm
           name="stateId"
           label="State"
           required
@@ -118,14 +118,14 @@ const ProjectFormModal = ({ open, onClose, project }) => {
           placeholder="Select state"
         />
 
-        <FormInput
+        <InputForm
           name="description"
           label="Description"
           type="textarea"
           placeholder="Enter project description"
         />
 
-        <FormSwitch name="active" label="Active" required />
+        <SwitchForm name="active" label="Active" required />
       </BaseFormModal>
 
       <DeveloperFormModal
