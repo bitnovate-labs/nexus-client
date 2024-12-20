@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber } from "antd";
 
-export const FormInput = ({
+const FormInput = ({
   name,
   label,
   required = false,
@@ -47,3 +47,5 @@ export const FormInput = ({
     </Form.Item>
   );
 };
+
+export default FormInput;

@@ -1,4 +1,4 @@
-import { FormInput } from "../../../components/forms";
+import FormInput from "@components/forms/FormInput";
 
 const PersonalInfoForm = () => {
   return (

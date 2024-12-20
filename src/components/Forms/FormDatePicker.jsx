@@ -2,7 +2,7 @@ import { Form, DatePicker } from "antd";
 import dayjs from "dayjs";
 import { DATE_FORMAT } from "../../utils/dateUtils";
 
-export const FormDatePicker = ({ name, label, required = false, ...props }) => {
+const FormDatePicker = ({ name, label, required = false, ...props }) => {
   return (
     <Form.Item
       name={name}
@@ -27,3 +27,5 @@ export const FormDatePicker = ({ name, label, required = false, ...props }) => {
     </Form.Item>
   );
 };
+
+export default FormDatePicker;

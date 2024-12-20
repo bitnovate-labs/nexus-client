@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import {
-  FormInput,
-  FormSelect,
-  FormSwitch,
-  FormDatePicker,
-} from "../../../components/forms";
+import FormInput from "@components/forms/FormInput";
+import FormSelect from "@components/forms/FormSelect";
+import FormSwitch from "@components/forms/FormSwitch";
+import FormDatePicker from "@components/forms/FormDatePicker";
 import DesignationFormModal from "../../Designation/components/DesignationFormModal";
 import AgentFormDrawer from "./AgentFormDrawer";
 import { useBranches } from "../../../hooks/useBranches";

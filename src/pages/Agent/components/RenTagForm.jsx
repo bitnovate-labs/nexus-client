@@ -1,4 +1,5 @@
-import { FormInput, FormDatePicker } from "../../../components/forms";
+import FormInput from "@components/forms/FormInput";
+import FormDatePicker from "@components/forms/FormDatePicker";
 
 const RenTagForm = () => {
   return (

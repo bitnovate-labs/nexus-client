@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FormInput, FormSelect } from "../../../components/forms";
+import FormInput from "@components/forms/FormInput";
+import FormSelect from "@components/forms/FormSelect";
 import BankFormModal from "../../Banks/components/BankFormModal";
 import { useBanks } from "../../../hooks/useBanks";
 
