@@ -1,6 +1,6 @@
 import { Form, DatePicker } from "antd";
 import dayjs from "dayjs";
-import { DATE_FORMAT } from "../../utils/dateUtils";
+import { DATE_FORMAT } from "@utils/dateUtils";
 
 const DatePickerForm = ({ name, label, required = false, ...props }) => {
   return (

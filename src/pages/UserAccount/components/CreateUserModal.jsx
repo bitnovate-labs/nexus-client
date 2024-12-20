@@ -5,9 +5,9 @@ import SelectForm from "@components/forms/SelectForm";
 import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
 import { useMutation } from "@apollo/client";
-import { CREATE_USER, UPDATE_USER } from "../../../graphql/mutations/users";
-import { GET_USERS } from "../../../graphql/queries/users";
-import { useUserRoles } from "../../../hooks/useUserRoles";
+import { CREATE_USER, UPDATE_USER } from "@graphql/mutations/users";
+import { GET_USERS } from "@graphql/queries/users";
+import { useUserRoles } from "@hooks/useUserRoles";
 import UserRoleFormModal from "../../UserRoles/components/UserRoleFormModal";
 
 const CreateUserModal = ({ visible, onCancel, user }) => {

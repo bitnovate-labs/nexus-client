@@ -6,9 +6,9 @@ import SwitchForm from "@components/forms/SwitchForm";
 import DatePickerForm from "@components/forms/DatePickerForm";
 import DesignationFormModal from "../../Designation/components/DesignationFormModal";
 import AgentFormDrawer from "./AgentFormDrawer";
-import { useBranches } from "../../../hooks/useBranches";
-import { useDesignations } from "../../../hooks/useDesignations";
-import { GET_AGENTS } from "../../../graphql/queries/agents";
+import { useBranches } from "@hooks/useBranches";
+import { useDesignations } from "@hooks/useDesignations";
+import { GET_AGENTS } from "@graphql/queries/agents";
 
 const GeneralInfoForm = () => {
   const [designationModalOpen, setDesignationModalOpen] = useState(false);

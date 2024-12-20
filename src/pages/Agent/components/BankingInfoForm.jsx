@@ -2,7 +2,7 @@ import { useState } from "react";
 import InputForm from "@components/forms/InputForm";
 import SelectForm from "@components/forms/SelectForm";
 import BankFormModal from "../../Banks/components/BankFormModal";
-import { useBanks } from "../../../hooks/useBanks";
+import { useBanks } from "@hooks/useBanks";
 
 const BankingInfoForm = () => {
   const [bankModalOpen, setBankModalOpen] = useState(false);

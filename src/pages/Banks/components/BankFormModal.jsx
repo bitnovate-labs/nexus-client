@@ -3,7 +3,7 @@ import { Form, message } from "antd";
 import InputForm from "@components/forms/InputForm";
 import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useBanks } from "../../../hooks/useBanks";
+import { useBanks } from "@hooks/useBanks";
 
 const BankFormModal = ({ open, onClose, bank }) => {
   const [form] = Form.useForm();

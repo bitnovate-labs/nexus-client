@@ -3,7 +3,7 @@ import { Form, message } from "antd";
 import InputForm from "@components/forms/InputForm";
 import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useDesignations } from "../../../hooks/useDesignations";
+import { useDesignations } from "@hooks/useDesignations";
 
 const DesignationFormModal = ({ open, onClose, designation }) => {
   const [form] = Form.useForm();

@@ -4,9 +4,9 @@ import InputForm from "@components/forms/InputForm";
 import SelectForm from "@components/forms/SelectForm";
 import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useProjects } from "../../../../hooks/useProjects";
-import { useDevelopers } from "../../../../hooks/useDevelopers";
-import { useStates } from "../../../../hooks/useStates";
+import { useProjects } from "@hooks/useProjects";
+import { useDevelopers } from "@hooks/useDevelopers";
+import { useStates } from "@hooks/useStates";
 import DeveloperFormModal from "../../../Developers/components/DeveloperFormModal";
 
 const ProjectFormModal = ({ open, onClose, project }) => {

@@ -3,7 +3,7 @@ import { Form, message } from "antd";
 import InputForm from "@components/forms/InputForm";
 import SwitchForm from "@components/forms/SwitchForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useUserRoles } from "../../../hooks/useUserRoles";
+import { useUserRoles } from "@hooks/useUserRoles";
 
 const UserRoleFormModal = ({ visible, onCancel, userRole }) => {
   const [form] = Form.useForm();

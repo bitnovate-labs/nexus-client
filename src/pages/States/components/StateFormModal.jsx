@@ -3,7 +3,7 @@ import { Form, message } from "antd";
 import InputForm from "@components/forms/InputForm";
 import SelectForm from "@components/forms/SelectForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useStates } from "../../../hooks/useStates";
+import { useStates } from "@hooks/useStates";
 
 const StateFormModal = ({ open, onClose, state }) => {
   const [form] = Form.useForm();

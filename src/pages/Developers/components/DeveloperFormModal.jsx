@@ -2,7 +2,7 @@ import React from "react";
 import { Form, message } from "antd";
 import InputForm from "@components/forms/InputForm";
 import BaseFormModal from "@components/modals/BaseFormModal";
-import { useDevelopers } from "../../../hooks/useDevelopers";
+import { useDevelopers } from "@hooks/useDevelopers";
 
 const DeveloperFormModal = ({ open, onClose, developer }) => {
   const [form] = Form.useForm();
