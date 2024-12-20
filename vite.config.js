@@ -20,3 +20,4 @@ export default defineConfig({
     },
   },
 });
+console.log("Alias @components:", path.resolve(__dirname, "src/components"));
