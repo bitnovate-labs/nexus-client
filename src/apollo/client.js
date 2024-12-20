@@ -3,8 +3,8 @@ import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 
 const uploadLink = createUploadLink({
-  // uri: "http://localhost:4000/graphql",
-  uri: import.meta.env.VITE_GRAPHQL_URI,
+  uri: "http://localhost:4000/graphql",
+  // uri: import.meta.env.VITE_GRAPHQL_URI,
   credentials: "include",
   headers: {
     apikey: import.meta.env.VITE_SUPABASE_ANON_KEY, // Replace with your Supabase anon key
