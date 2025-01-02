@@ -4,13 +4,7 @@ import { createUploadLink } from "apollo-upload-client";
 
 const uploadLink = createUploadLink({
   uri: import.meta.env.VITE_API_URL,
-  // uri: "http://localhost:4000/graphql",
-  // uri: "http://nexus-server-ccf2d00yt-timothys-projects-8a13be46.vercel.app/graphql",
-  // uri: import.meta.env.VITE_GRAPHQL_URI,
   credentials: "include",
-  // headers: {
-  //   apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-  // },
 });
 
 const authLink = setContext((_, { headers }) => {
