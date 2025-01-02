@@ -51,7 +51,7 @@ const GroupTargetCard = () => {
         {/* Bottom Right Image */}
         <div className="absolute bottom-4 right-4">
           <img
-            src="/src/assets/group-target.svg"
+            // src="/src/assets/group-target.svg"
             alt="Group Target"
             className="w-16 h-16 opacity-20"
           />

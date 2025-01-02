@@ -49,7 +49,7 @@ const PersonalTargetCard = () => {
         {/* Bottom Right Image */}
         <div className="absolute bottom-4 right-4">
           <img
-            src="/src/assets/personal-target.svg"
+            // src="/src/assets/personal-target.svg"
             alt="Personal Target"
             className="w-16 h-16 opacity-20"
           />
