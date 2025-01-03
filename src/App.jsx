@@ -84,6 +84,8 @@ const App = () => {
         <SessionExpirationHandler />
         <Routes>
           <Route path="/login" element={<Login />} />
+          {/* Redirects users to the dashboard route if no routes are available */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route
             path="/dashboard"
             element={
@@ -256,8 +258,6 @@ const App = () => {
               }
             />
           ))}
-          {/* Redirects users to the dashboard route if no routes are available */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </ConfigProvider>
     </AuthProvider>
