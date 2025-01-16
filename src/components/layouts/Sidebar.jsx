@@ -3,6 +3,7 @@ import {
   BankOutlined,
   BarChartOutlined,
   CalculatorOutlined,
+  CalendarOutlined,
   ClusterOutlined,
   CreditCardOutlined,
   DashboardOutlined,
@@ -50,6 +51,12 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
       icon: <DashboardOutlined />,
       label: "Dashboard",
       onClick: () => handleMenuClick("/dashboard"),
+    },
+    {
+      key: "/events",
+      icon: <CalendarOutlined />,
+      label: "Events",
+      onClick: () => handleMenuClick("/events"),
     },
     {
       key: "/developers",
@@ -202,6 +209,12 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
           label: "Designations",
           onClick: () => handleMenuClick("/designations"),
         },
+        // {
+        //   key: "/events-settings",
+        //   icon: <CalendarOutlined />,
+        //   label: "Event",
+        //   onClick: () => handleMenuClick("/events-settings"),
+        // },
         {
           key: "/user-roles",
           icon: <TeamOutlined />,

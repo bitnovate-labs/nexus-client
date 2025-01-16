@@ -156,7 +156,7 @@ const Agent = () => {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold dark:text-white">Agent</h1>
+        <h1 className="text-2xl font-bold ml-2 dark:text-white">Agents</h1>
         <Space>
           <Button
             type="primary"

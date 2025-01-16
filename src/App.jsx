@@ -36,6 +36,8 @@ import GroupSales from "./pages/Reports/submenu/GroupSales.jsx";
 import PersonalSales from "./pages/Reports/submenu/PersonalSales.jsx";
 import CommissionOutstanding from "./pages/Reports/submenu/CommissionOutstanding.jsx";
 import CommissionSummary from "./pages/Reports/submenu/CommissionSummary.jsx";
+import Events from "./pages/Events/Events.jsx";
+import EventsSettings from "./pages/Events/EventSettings.jsx";
 
 const App = () => {
   const { isDark } = useTheme() || {};
@@ -92,6 +94,26 @@ const App = () => {
               <ProtectedRoute>
                 <Layout>
                   <Dashboard />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Events />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/events-settings"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EventsSettings />
                 </Layout>
               </ProtectedRoute>
             }
