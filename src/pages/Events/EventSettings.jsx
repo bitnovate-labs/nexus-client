@@ -1,57 +1,99 @@
-import { Card, Table, Button, Space, Modal, message, Dropdown } from "antd";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  MoreOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
 import { useState } from "react";
+import {
+  Table,
+  Button,
+  Input,
+  Space,
+  Dropdown,
+  message,
+  DatePicker,
+} from "antd";
+import {
+  PlusOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+} from "@ant-design/icons";
+import EventFormModal from "./components/EventFormModal";
+import { convertToCSV, downloadCSV } from "../../utils/csvExport";
+import { useEvents } from "../../hooks/useEvents";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const EventsSettings = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([
-    {
-      key: "1",
-      date: "16/01/2025",
-      name: "Tyson XXXX",
-      branch: "Kuala Lumpur",
-      designation: "Leader",
-    },
-  ]);
-
+  const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [searchFilters, setSearchFilters] = useState({
+    date: "",
+    name: "",
+    branch: "",
+    designation: "",
+  });
 
-  const moreMenuItems = [
+  const { events, loading, deleteEvents } = useEvents();
+
+  const handleDelete = async () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning("Please select items to delete");
+      return;
+    }
+    try {
+      await deleteEvents(selectedRowKeys);
+      message.success(`Deleted ${selectedRowKeys.length} items`);
+      setSelectedRowKeys([]);
+    } catch (error) {
+      message.error("Failed to delete events");
+      console.error("Delete error:", error);
+    }
+  };
+
+  const handleExport = () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning("Please select items to export");
+      return;
+    }
+    const selectedData = events.filter((item) =>
+      selectedRowKeys.includes(item.id)
+    );
+
+    const fields = [
+      { header: "Date", getter: (item) => item.date },
+      { header: "Name", getter: (item) => item.name },
+      { header: "Branch", getter: (item) => item.branch },
+      { header: "Designation", getter: (item) => item.designation },
+    ];
+
+    const csvContent = convertToCSV(selectedData, fields);
+    downloadCSV(csvContent, "events.csv");
+    message.success(`Exported ${selectedRowKeys.length} items`);
+  };
+
+  const moreActionsItems = [
     {
       key: "delete",
-      label: "Delete",
-      onClick: () => handleBulkDelete(),
+      label: "Delete Selection",
+      icon: <DeleteOutlined />,
+      onClick: handleDelete,
     },
     {
       key: "export",
-      label: "Export",
-      onClick: () => handleExport(),
-    },
-    {
-      key: "advancedSearch",
-      label: "Advanced Search",
-      onClick: () => handleAdvancedSearch(),
+      label: "Export to CSV",
+      icon: <DownloadOutlined />,
+      onClick: handleExport,
     },
   ];
 
   const columns = [
     {
-      title: "",
-      key: "checkbox",
-      width: 32,
-      render: () => null,
-    },
-    {
       title: "Date",
       dataIndex: "date",
-      key: "date",
-      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+      render: (date) => {
+        const parsedDate = dayjs(date);
+        return parsedDate.isValid() ? parsedDate.format("DD/MM/YYYY") : "-";
+      },
+      sorter: (a, b) => dayjs(a.date).unix() - dayjs(b.date).unix(),
     },
     {
       title: "Name",
@@ -71,53 +113,19 @@ const EventsSettings = () => {
       key: "designation",
       sorter: (a, b) => a.designation.localeCompare(b.designation),
     },
-    {
-      title: "",
-      key: "action",
-      width: 48,
-      render: (_, record) => (
-        <Button
-          type="text"
-          icon={<EditOutlined />}
-          onClick={() => handleEdit(record)}
-        />
-      ),
-    },
   ];
 
-  const handleAdd = () => {
-    message.info("Add functionality to be implemented");
-  };
-
-  const handleEdit = (record) => {
-    message.info(`Edit event: ${record.name}`);
-  };
-
-  const handleBulkDelete = () => {
-    if (selectedRowKeys.length === 0) {
-      message.warning("Please select items to delete");
-      return;
-    }
-    Modal.confirm({
-      title: "Are you sure you want to delete these events?",
-      content: `This will permanently delete ${selectedRowKeys.length} selected events`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        message.success(`Deleted ${selectedRowKeys.length} events`);
-        setSelectedRowKeys([]);
-      },
+  const filteredData = events.filter((item) => {
+    return Object.keys(searchFilters).every((key) => {
+      const searchValue = searchFilters[key].toLowerCase();
+      if (key === "date" && !searchValue) return true;
+      if (key === "date") {
+        return item[key]?.startsWith(searchValue);
+      }
+      const itemValue = (item[key] || "").toLowerCase();
+      return itemValue.includes(searchValue);
     });
-  };
-
-  const handleExport = () => {
-    message.info("Export functionality to be implemented");
-  };
-
-  const handleAdvancedSearch = () => {
-    message.info("Advanced search to be implemented");
-  };
+  });
 
   const rowSelection = {
     selectedRowKeys,
@@ -127,46 +135,103 @@ const EventsSettings = () => {
   };
 
   return (
-    <div className="p-6">
-      <Card
-        title="Event"
-        extra={
-          <Space>
-            <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-              New
-            </Button>
-            <Dropdown
-              menu={{ items: moreMenuItems }}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-              <Button>
-                More <MoreOutlined />
-              </Button>
-            </Dropdown>
-          </Space>
-        }
-      >
-        <div className="mb-4 flex gap-2">
-          <input type="date" className="ant-input" />
-          <input placeholder="Name" className="ant-input" />
-          <input placeholder="Branch" className="ant-input" />
-          <input placeholder="Designation" className="ant-input" />
-          <Button icon={<SearchOutlined />} />
-        </div>
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold ml-2">Event</h1>
+        <Space>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => {
+              setEditingEvent(null);
+              setIsModalVisible(true);
+            }}
+          >
+            New
+          </Button>
+          <Dropdown
+            menu={{ items: moreActionsItems }}
+            trigger={["hover", "click"]}
+            placement="bottomRight"
+          >
+            <Button>More Actions</Button>
+          </Dropdown>
+        </Space>
+      </div>
+
+      {/* Search Filters */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <DatePicker
+          className="w-full"
+          onChange={(date) =>
+            setSearchFilters((prev) => {
+              const formattedDate = date ? date.format("YYYY-MM-DD") : "";
+              return { ...prev, date: formattedDate };
+            })
+          }
+          placeholder="Select date"
+          format="DD/MM/YYYY"
+        />
+        <Input
+          placeholder="Name"
+          value={searchFilters.name}
+          onChange={(e) =>
+            setSearchFilters((prev) => ({ ...prev, name: e.target.value }))
+          }
+          prefix={<SearchOutlined />}
+        />
+        <Input
+          placeholder="Branch"
+          value={searchFilters.branch}
+          onChange={(e) =>
+            setSearchFilters((prev) => ({ ...prev, branch: e.target.value }))
+          }
+          prefix={<SearchOutlined />}
+        />
+        <Input
+          placeholder="Designation"
+          value={searchFilters.designation}
+          onChange={(e) =>
+            setSearchFilters((prev) => ({
+              ...prev,
+              designation: e.target.value,
+            }))
+          }
+          prefix={<SearchOutlined />}
+        />
+      </div>
+
+      {/* Table */}
+      <div className="rounded-lg overflow-hidden shadow-lg">
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={data}
           loading={loading}
+          dataSource={filteredData}
+          rowKey="id"
           pagination={{
-            total: data.length,
+            total: filteredData.length,
             pageSize: 10,
-            showSizeChanger: false,
+            position: ["bottomCenter"],
             showTotal: (total) => `${total} record(s)`,
           }}
+          className="bg-white dark:bg-gray"
+          onRow={(record) => ({
+            onClick: () => navigate(`/events/${record.id}`),
+            style: { cursor: "pointer" },
+          })}
         />
-      </Card>
+      </div>
+
+      {/* Event Form Modal */}
+      <EventFormModal
+        visible={isModalVisible}
+        onCancel={() => {
+          setIsModalVisible(false);
+          setEditingEvent(null);
+        }}
+        event={editingEvent}
+      />
     </div>
   );
 };

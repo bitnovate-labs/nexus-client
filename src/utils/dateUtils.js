@@ -2,11 +2,13 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import localeData from "dayjs/plugin/localeData";
 
 // Extend dayjs with required plugins
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(localeData);
 
 export const DATE_FORMAT = {
   display: "DD/MM/YYYY",
@@ -16,12 +18,11 @@ export const DATE_FORMAT = {
 export const formatDate = (dateString) => {
   if (!dateString) return null;
 
-  // Parse the date in UTC to avoid timezone issues
-  const date = dayjs.utc(dateString);
+  // Parse the date and ensure it's in the correct format
+  const date = dayjs(dateString);
   if (!date.isValid()) return null;
 
-  // Format in local timezone
-  return date.local().format(DATE_FORMAT.display);
+  return date.format(DATE_FORMAT.display);
 };
 
 export const formatDateForServer = (date) => {
@@ -32,8 +33,8 @@ export const formatDateForServer = (date) => {
     return date.format(DATE_FORMAT.store);
   }
 
-  // Parse the date in UTC
-  const parsedDate = dayjs.utc(date);
+  // Parse the date
+  const parsedDate = dayjs(date);
   if (!parsedDate.isValid()) return null;
 
   return parsedDate.format(DATE_FORMAT.store);
@@ -47,8 +48,8 @@ export const createDayjs = (dateString) => {
     return dateString;
   }
 
-  // Parse the date in UTC and convert to local
-  const date = dayjs.utc(dateString).local();
+  // Parse the date
+  const date = dayjs(dateString);
   return date.isValid() ? date : null;
 };
 

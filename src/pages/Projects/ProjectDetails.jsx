@@ -7,12 +7,12 @@ import {
 } from "@ant-design/icons";
 import ProjectInfo from "./components/ProjectDetails/ProjectInfo";
 import UnitType from "./components/ProjectDetails/UnitType";
-import Attachment from "./components/ProjectDetails/Attachment";
 import ProjectSchedule from "./components/ProjectDetails/ProjectSchedule";
 import CommissionScheme from "./components/ProjectDetails/CommissionScheme";
 import AgentCommission from "./components/ProjectDetails/AgentCommission";
 import ProjectManagerCommission from "./components/ProjectDetails/ProjectManagerCommission";
-import ProjectPackage from "./components/ProjectDetails/ProjectPackage";
+// import Attachment from "./components/ProjectDetails/Attachment"; // Removed by Sean
+// import ProjectPackage from "./components/ProjectDetails/ProjectPackage"; // Removed by Sean
 import { useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../../graphql/queries/projects";
 
@@ -68,12 +68,12 @@ const ProjectDetails = () => {
         {/* Right Column - Other Sections */}
         <div className="lg:col-span-8 space-y-6">
           <UnitType projectId={id} />
-          <Attachment projectId={id} />
+          {/* <Attachment projectId={id} /> */}
           <ProjectSchedule projectId={id} />
           <CommissionScheme projectId={id} />
           <AgentCommission projectId={id} />
           <ProjectManagerCommission projectId={id} />
-          <ProjectPackage projectId={id} />
+          {/* <ProjectPackage projectId={id} /> */}
         </div>
       </div>
     </div>

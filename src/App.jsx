@@ -38,6 +38,7 @@ import CommissionOutstanding from "./pages/Reports/submenu/CommissionOutstanding
 import CommissionSummary from "./pages/Reports/submenu/CommissionSummary.jsx";
 import Events from "./pages/Events/Events.jsx";
 import EventsSettings from "./pages/Events/EventSettings.jsx";
+import EventInfo from "./pages/Events/EventInfo.jsx";
 
 const App = () => {
   const { isDark } = useTheme() || {};
@@ -104,6 +105,16 @@ const App = () => {
               <ProtectedRoute>
                 <Layout>
                   <Events />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/events/:id"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EventInfo />
                 </Layout>
               </ProtectedRoute>
             }

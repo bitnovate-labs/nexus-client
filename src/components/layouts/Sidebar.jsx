@@ -209,12 +209,12 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
           label: "Designations",
           onClick: () => handleMenuClick("/designations"),
         },
-        // {
-        //   key: "/events-settings",
-        //   icon: <CalendarOutlined />,
-        //   label: "Event",
-        //   onClick: () => handleMenuClick("/events-settings"),
-        // },
+        {
+          key: "/events-settings",
+          icon: <CalendarOutlined />,
+          label: "Event",
+          onClick: () => handleMenuClick("/events-settings"),
+        },
         {
           key: "/user-roles",
           icon: <TeamOutlined />,
@@ -271,7 +271,8 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
             collapsed ? "hidden" : "text-xs"
           }`}
         >
-          Version: 2411061530
+          {/* Version: 2411061530 */}
+          Version: 2501171521
         </p>
       </div>
       {/* Navigation Menu */}
