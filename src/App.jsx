@@ -6,7 +6,11 @@ import "./index.css";
 
 import SessionExpirationHandler from "./components/auth/SessionExpirationHandler.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import Layout from "./components/layouts/Layout.jsx";
+
+// MainContent to wrap pages
+import MainContent from "./layouts/MainContent.jsx";
+
+// Pages
 import Login from "./pages/Login/Login.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Agent from "./pages/Agent/Agent.jsx";
@@ -18,10 +22,10 @@ import Developers from "./pages/Developers/Developers.jsx";
 import States from "./pages/States/States.jsx";
 import Projects from "./pages/Projects/Projects.jsx";
 import ProjectDetails from "./pages/Projects/ProjectDetails.jsx";
-import DebitNote from "./pages/Finance/DebitNote.jsx";
-import CreditNote from "./pages/Finance/CreditNote.jsx";
-import Receipt from "./pages/Finance/Receipt.jsx";
-import Invoice from "./pages/Finance/Invoice.jsx";
+// import DebitNote from "./pages/Finance/DebitNote.jsx"; -- excluded by Sean
+// import CreditNote from "./pages/Finance/CreditNote.jsx"; -- excluded by Sean
+// import Receipt from "./pages/Finance/Receipt.jsx"; -- excluded by Sean
+// import Invoice from "./pages/Finance/Invoice.jsx"; -- excluded by Sean
 import Sales from "./pages/Sales/Sales.jsx";
 import Reports from "./pages/Reports/Reports.jsx";
 import ActualGroupSales from "./pages/Reports/submenu/ActualGroupSales.jsx";
@@ -39,6 +43,8 @@ import CommissionSummary from "./pages/Reports/submenu/CommissionSummary.jsx";
 import Events from "./pages/Events/Events.jsx";
 import EventsSettings from "./pages/Events/EventSettings.jsx";
 import EventInfo from "./pages/Events/EventInfo.jsx";
+import Memo from "./pages/Memo/Memo.jsx";
+import MemoSettings from "./pages/Memo/MemoSettings.jsx";
 
 const App = () => {
   const { isDark } = useTheme() || {};
@@ -56,7 +62,7 @@ const App = () => {
     },
   };
 
-  // Reports submenu routes for cleaner code
+  // REPORTS SUBMENU ROUTES HERE - for cleaner code
   const reportRoutes = [
     { path: "/reports/commission_summary", component: <CommissionSummary /> },
     {
@@ -84,28 +90,32 @@ const App = () => {
   return (
     <AuthProvider>
       <ConfigProvider theme={themeConfig}>
+        {/* SESSION EXPIRATION HANDLER */}
         <SessionExpirationHandler />
         <Routes>
+          {/* LOGIN */}
           <Route path="/login" element={<Login />} />
           {/* Redirects users to the dashboard route if no routes are available */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* DASHBOARD */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent title="Dashboard Overview">
                   <Dashboard />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
+          {/* EVENTS */}
           <Route
             path="/events"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent title="Events">
                   <Events />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
@@ -113,99 +123,42 @@ const App = () => {
             path="/events/:id"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent>
                   <EventInfo />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
+          {/* MEMO */}
           <Route
-            path="/events-settings"
+            path="/memo"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <EventsSettings />
-                </Layout>
+                <MainContent title="Memo">
+                  <Memo />
+                </MainContent>
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/agents"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Agent />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/user-account"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <UserAccount />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/banks"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Banks />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/designations"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Designations />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
+          {/* DEVELOPERS */}
           <Route
             path="/developers"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent title="Developers">
                   <Developers />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/states"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <States />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/user-roles"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <UserRoles />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
+          {/* PROJECTS */}
           <Route
             path="/projects"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent>
                   <Projects />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
@@ -213,84 +166,173 @@ const App = () => {
             path="/projects/:id"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent>
                   <ProjectDetails />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
+          {/* AGENTS */}
           <Route
-            path="/invoice"
+            path="/agents"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <Invoice />
-                </Layout>
+                <MainContent title="Agents">
+                  <Agent />
+                </MainContent>
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/receipt"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Receipt />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/credit-note"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <CreditNote />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/debit-note"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <DebitNote />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
+          {/* SALES */}
           <Route
             path="/sales"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent title="Title">
                   <Sales />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
+          {/* REPORTS */}
           <Route
             path="/reports"
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainContent>
                   <Reports />
-                </Layout>
+                </MainContent>
               </ProtectedRoute>
             }
           />
-          {/* Report submenus */}
+          {/* REPORT SUB-MENUS */}
           {reportRoutes.map(({ path, component }) => (
             <Route
               key={path}
               path={path}
               element={
                 <ProtectedRoute>
-                  <Layout>{component}</Layout>
+                  <MainContent>{component}</MainContent>
                 </ProtectedRoute>
               }
             />
           ))}
+          {/* ------------------------------------------------- */}
+          {/* SETTINGS */}
+          <Route
+            path="/banks"
+            element={
+              <ProtectedRoute>
+                <MainContent title="Banks">
+                  <Banks />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/designations"
+            element={
+              <ProtectedRoute>
+                <MainContent title="Designations">
+                  <Designations />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/events-settings"
+            element={
+              <ProtectedRoute>
+                <MainContent title="Event">
+                  <EventsSettings />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/memo-settings"
+            element={
+              <ProtectedRoute>
+                <MainContent title="Memo">
+                  <MemoSettings />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-roles"
+            element={
+              <ProtectedRoute>
+                <MainContent title="User Account Role">
+                  <UserRoles />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-account"
+            element={
+              <ProtectedRoute>
+                <MainContent title="User Account">
+                  <UserAccount />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/states"
+            element={
+              <ProtectedRoute>
+                <MainContent title="States">
+                  <States />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          />
+          {/* TO BE REMOVED LATER */}
+          {/* <Route
+            path="/invoice"
+            element={
+              <ProtectedRoute>
+                <MainContent>
+                  <Invoice />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          /> */}
+          {/* TO BE REMOVED LATER */}
+          {/* <Route
+            path="/receipt"
+            element={
+              <ProtectedRoute>
+                <MainContent>
+                  <Receipt />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          /> */}
+          {/* TO BE REMOVED LATER */}
+          {/* <Route
+            path="/credit-note"
+            element={
+              <ProtectedRoute>
+                <MainContent>
+                  <CreditNote />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          /> */}
+          {/* TO BE REMOVED LATER */}
+          {/* <Route
+            path="/debit-note"
+            element={
+              <ProtectedRoute>
+                <MainContent>
+                  <DebitNote />
+                </MainContent>
+              </ProtectedRoute>
+            }
+          /> */}
         </Routes>
       </ConfigProvider>
     </AuthProvider>

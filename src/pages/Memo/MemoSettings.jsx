@@ -15,25 +15,22 @@ import {
   DeleteOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
-import EventFormModal from "./components/EventFormModal";
+import { useMemos } from "../../hooks/useMemos";
+import MemoFormModal from "./components/MemoFormModal";
 import { convertToCSV, downloadCSV } from "../../utils/csvExport";
-import { useEvents } from "../../hooks/useEvents";
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
 
-const EventsSettings = () => {
-  const navigate = useNavigate();
+const MemoSettings = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [editingEvent, setEditingEvent] = useState(null);
+  const [editingMemo, setEditingMemo] = useState(null);
   const [searchFilters, setSearchFilters] = useState({
     date: "",
-    name: "",
-    branch: "",
-    designation: "",
+    title: "",
+    validity: "",
   });
 
-  const { events, loading, deleteEvents } = useEvents();
+  const { memos, loading, deleteMemos } = useMemos();
 
   const handleDelete = async () => {
     if (selectedRowKeys.length === 0) {
@@ -41,11 +38,11 @@ const EventsSettings = () => {
       return;
     }
     try {
-      await deleteEvents(selectedRowKeys);
+      await deleteMemos(selectedRowKeys);
       message.success(`Deleted ${selectedRowKeys.length} items`);
       setSelectedRowKeys([]);
     } catch (error) {
-      message.error("Failed to delete events");
+      message.error("Failed to delete memos");
       console.error("Delete error:", error);
     }
   };
@@ -55,19 +52,24 @@ const EventsSettings = () => {
       message.warning("Please select items to export");
       return;
     }
-    const selectedData = events.filter((item) =>
+    const selectedData = memos.filter((item) =>
       selectedRowKeys.includes(item.id)
     );
 
     const fields = [
-      { header: "Date", getter: (item) => item.date },
-      { header: "Name", getter: (item) => item.name },
-      { header: "Branch", getter: (item) => item.branch },
-      { header: "Designation", getter: (item) => item.designation },
+      {
+        header: "Date",
+        getter: (item) => dayjs(item.date).format("DD/MM/YYYY"),
+      },
+      { header: "Title", getter: (item) => item.title },
+      {
+        header: "Validity",
+        getter: (item) => dayjs(item.validity).format("DD/MM/YYYY"),
+      },
     ];
 
     const csvContent = convertToCSV(selectedData, fields);
-    downloadCSV(csvContent, "events.csv");
+    downloadCSV(csvContent, "memos.csv");
     message.success(`Exported ${selectedRowKeys.length} items`);
   };
 
@@ -90,38 +92,31 @@ const EventsSettings = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date) => {
-        const parsedDate = dayjs(date);
-        return parsedDate.isValid() ? parsedDate.format("DD/MM/YYYY") : "-";
-      },
+      key: "date",
+      render: (date) => dayjs(date).format("DD/MM/YYYY"),
       sorter: (a, b) => dayjs(a.date).unix() - dayjs(b.date).unix(),
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
-      title: "Branch",
-      dataIndex: "branch",
-      key: "branch",
-      sorter: (a, b) => a.branch.localeCompare(b.branch),
-    },
-    {
-      title: "Designation",
-      dataIndex: "designation",
-      key: "designation",
-      sorter: (a, b) => a.designation.localeCompare(b.designation),
+      title: "Validity",
+      dataIndex: "validity",
+      key: "validity",
+      render: (validity) => dayjs(validity).format("DD/MM/YYYY"),
+      sorter: (a, b) => dayjs(a.validity).unix() - dayjs(b.validity).unix(),
     },
   ];
 
-  const filteredData = events.filter((item) => {
+  const filteredData = memos.filter((item) => {
     return Object.keys(searchFilters).every((key) => {
       const searchValue = searchFilters[key].toLowerCase();
-      if (key === "date" && !searchValue) return true;
-      if (key === "date") {
-        return item[key]?.startsWith(searchValue);
+      if (key === "date" || key === "validity") {
+        if (!searchValue) return true;
+        return dayjs(item[key]).format("YYYY-MM-DD").startsWith(searchValue);
       }
       const itemValue = (item[key] || "").toLowerCase();
       return itemValue.includes(searchValue);
@@ -153,7 +148,7 @@ const EventsSettings = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setEditingEvent(null);
+                  setEditingMemo(null);
                   setIsModalVisible(true);
                 }}
                 block
@@ -182,40 +177,32 @@ const EventsSettings = () => {
           <DatePicker
             className="w-full"
             onChange={(date) =>
-              setSearchFilters((prev) => {
-                const formattedDate = date ? date.format("YYYY-MM-DD") : "";
-                return { ...prev, date: formattedDate };
-              })
+              setSearchFilters((prev) => ({
+                ...prev,
+                date: date ? date.format("YYYY-MM-DD") : "",
+              }))
             }
             placeholder="Select date"
             format="DD/MM/YYYY"
           />
           <Input
-            placeholder="Name"
-            value={searchFilters.name}
+            placeholder="Title"
+            value={searchFilters.title}
             onChange={(e) =>
-              setSearchFilters((prev) => ({ ...prev, name: e.target.value }))
+              setSearchFilters((prev) => ({ ...prev, title: e.target.value }))
             }
             prefix={<SearchOutlined />}
           />
-          <Input
-            placeholder="Branch"
-            value={searchFilters.branch}
-            onChange={(e) =>
-              setSearchFilters((prev) => ({ ...prev, branch: e.target.value }))
-            }
-            prefix={<SearchOutlined />}
-          />
-          <Input
-            placeholder="Designation"
-            value={searchFilters.designation}
-            onChange={(e) =>
+          <DatePicker
+            className="w-full"
+            onChange={(date) =>
               setSearchFilters((prev) => ({
                 ...prev,
-                designation: e.target.value,
+                validity: date ? date.format("YYYY-MM-DD") : "",
               }))
             }
-            prefix={<SearchOutlined />}
+            placeholder="Select validity"
+            format="DD/MM/YYYY"
           />
         </div>
       </div>
@@ -224,12 +211,12 @@ const EventsSettings = () => {
       {/* MAIN CONTENT SECTION */}
 
       {/* DEKSTOP TABLE VIEW */}
-      <div className="rounded-lg overflow-hidden shadow-lg">
+      <div className="rounded-lg overflow-hidden shadow-md">
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          loading={loading}
           dataSource={filteredData}
+          loading={loading}
           rowKey="id"
           pagination={{
             total: filteredData.length,
@@ -237,10 +224,6 @@ const EventsSettings = () => {
             position: ["bottomCenter"],
             showTotal: (total) => `${total} record(s)`,
           }}
-          onRow={(record) => ({
-            onClick: () => navigate(`/events/${record.id}`),
-            style: { cursor: "pointer" },
-          })}
         />
       </div>
 
@@ -249,16 +232,16 @@ const EventsSettings = () => {
       {/* DRAWER COMPONENT (if available) */}
 
       {/* MODAL COMPONENT */}
-      <EventFormModal
+      <MemoFormModal
         visible={isModalVisible}
         onCancel={() => {
           setIsModalVisible(false);
-          setEditingEvent(null);
+          setEditingMemo(null);
         }}
-        event={editingEvent}
+        memo={editingMemo}
       />
     </div>
   );
 };
 
-export default EventsSettings;
+export default MemoSettings;

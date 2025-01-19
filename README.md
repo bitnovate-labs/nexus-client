@@ -17,12 +17,12 @@ connexus-project/
 │   │   │   └── Modals                # Pop up Modal components for Agent menu
 │   │   ├── Cards                     # All Cards components / Widget components here
 │   │   ├── Forms                     # Reusable Forms
-│   │   ├── Layout                    # Configure the Sidebar, Header and Body
-│   │   │   ├── Header                # ALL Header-related components here
-│   │   │   ├── DashboardLayout.jsx   # Layout for the Dashboard (Sidebar, Header, Body)
-│   │   │   └── Sidebar.jsx           # Sidebar component
-│   │   └── ThemeToggleButton.jsx     # Light / Dark Mode button component
 │   │
+│   ├── layouts/                      # Configure the Sidebar, Header and Body
+│   │   │   ├── Header                # ALL Header-related components here
+│   │   │   ├── MainContent.jsx       # Main area for page-specific content - all Page components need to be wrapped
+|   |   |   |                           with <MainContent> in App.jsx to include the Header and Sidebar
+│   │   │   └── Sidebar.jsx           # Sidebar component
 │   ├── contexts/                     # Context & Theme
 │   │   ├── AuthContext.jsx
 │   │   └── ThemeContext.jsx
@@ -45,6 +45,9 @@ connexus-project/
 
 ```
 
+- Use the code boilerplate from PageBoilerplate.jsx (src/pages/PageBoilerplate.jsx) as the codebase template to build new pages
+- Page titles are named inside App.jsx -> <MainContent title="..title.." />
+
 ## Run the application locally:
 
 ```
@@ -56,6 +59,18 @@ npm run dev
 Username: admin
 
 Password: password
+
+# Versioning - Semantic Versioning Format
+
+Go to package.json to manually update 'version' before every push to Github or build
+
+```
+MAJOR.MINOR.PATCH
+```
+
+Major - For major or breaking changes
+Minor - When NEW FEATURES are ADDED
+Patch - For BUG FIXES or MINOR UPDATES (no changes in existing functionality)
 
 ## Project Layout
 

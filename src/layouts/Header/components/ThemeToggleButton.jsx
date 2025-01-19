@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { SunOutlined, MoonOutlined } from "@ant-design/icons";
-import { useTheme } from "../../../../contexts/ThemeContext";
+import { useTheme } from "@contexts/ThemeContext";
 
 const ThemeToggleButton = () => {
   const { isDark, toggleTheme } = useTheme();

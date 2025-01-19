@@ -1,9 +1,9 @@
 import { Dropdown, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { useAuth } from "../../../../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { GET_ME } from "../../../../graphql/queries/auth";
-import AvatarUpload from "../../../AvatarUpload/AvatarUpload";
+import { useAuth } from "@hooks/useAuth";
+import { GET_ME } from "@graphql/queries/auth";
+import AvatarUpload from "@components/AvatarUpload/AvatarUpload";
 
 const UserMenu = ({ items }) => {
   const { user: authUser } = useAuth();

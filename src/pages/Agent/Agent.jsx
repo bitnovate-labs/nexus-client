@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table, Input, Button, Space, Dropdown, message } from "antd";
+import { Table, Input, Button, Dropdown, message, Row, Col } from "antd";
 import {
   DeleteOutlined,
   DownloadOutlined,
@@ -155,43 +155,64 @@ const Agent = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold ml-2 dark:text-white">Agents</h1>
-        <Space>
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => setDrawerOpen(true)}
-          >
-            New
-          </Button>
-          <Dropdown
-            menu={{ items: moreActionsItems }}
-            trigger={["hover", "click"]}
-            placement="bottomRight"
-          >
-            <Button>More Actions</Button>
-          </Dropdown>
-        </Space>
+      {/* ---------------------------------------------------------------------- */}
+      {/* PAGE FILTERS and BUTTONS SECTION */}
+      <div className="flex flex-col gap-2 lg:flex-row-reverse justify-between">
+        <div className="flex justify-center lg:flex-1">
+          {/* BUTTONS - RIGHT SECTION */}
+          <Row gutter={4} style={{ width: "100%" }} justify="end">
+            <Col
+              xs={12}
+              md={6}
+              lg={4}
+              className="lg:max-w-[150px] lg:min-w-[150px]"
+            >
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => setDrawerOpen(true)}
+                block
+              >
+                New
+              </Button>
+            </Col>
+            <Col
+              xs={12}
+              md={6}
+              lg={4}
+              className="lg:max-w-[150px] lg:min-w-[150px]"
+            >
+              <Dropdown
+                menu={{ items: moreActionsItems }}
+                trigger={["hover", "click"]}
+                placement="bottomRight"
+              >
+                <Button block>More Actions</Button>
+              </Dropdown>
+            </Col>
+          </Row>
+        </div>
+        {/* FILTERS - LEFT SECTION */}
+        <div className="grid gap-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">
+          {Object.keys(searchText).map((key) => (
+            <Input
+              key={key}
+              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+              value={searchText[key]}
+              onChange={(e) =>
+                setSearchText({ ...searchText, [key]: e.target.value })
+              }
+              prefix={<SearchOutlined />}
+              className="w-full"
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Search Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
-        {Object.keys(searchText).map((key) => (
-          <Input
-            key={key}
-            placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-            value={searchText[key]}
-            onChange={(e) =>
-              setSearchText({ ...searchText, [key]: e.target.value })
-            }
-            prefix={<SearchOutlined />}
-            className="w-full"
-          />
-        ))}
-      </div>
+      {/* ---------------------------------------------------------------------- */}
+      {/* MAIN CONTENT SECTION */}
 
-      {/* Desktop Table View */}
+      {/* DEKSTOP TABLE VIEW */}
       <div className="hidden md:block">
         <div className="rounded-lg overflow-hidden shadow-md">
           <Table
@@ -205,7 +226,6 @@ const Agent = () => {
               position: ["bottomCenter"],
               showTotal: (total) => `${total} record(s)`,
             }}
-            className="bg-white dark:bg-gray"
             scroll={{
               x: 1020,
               y: "calc(100vh - 300px)",
@@ -215,7 +235,7 @@ const Agent = () => {
         </div>
       </div>
 
-      {/* Mobile Card View */}
+      {/* MOBILE CARD View */}
       <div className="md:hidden">
         {loading ? (
           <div className="text-center py-4">Loading...</div>
@@ -230,6 +250,7 @@ const Agent = () => {
         )}
       </div>
 
+      {/* MOBILE TABLE VIEW (if available) */}
       {/* ORIGINAL MOBILE VIEW - TO BE REMOVED LATER IF AGENT CARD IS ACCEPTABLE */}
       {/* <div className="relative">
         <div className="overflow-hidden">
@@ -256,12 +277,15 @@ const Agent = () => {
         </div>
       </div> */}
 
+      {/* DRAWER COMPONENT */}
       <AgentFormDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
       <AgentDetailsDrawer
         open={detailsDrawerOpen}
         onClose={() => setDetailsDrawerOpen(false)}
         agent={selectedAgent}
       />
+
+      {/* MODAL COMPONENT (if available) */}
     </div>
   );
 };

@@ -6,11 +6,11 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "@hooks/useAuth";
 import ThemeToggleButton from "./components/ThemeToggleButton";
 import NotificationMenu from "./components/NotificationMenu";
 import UserMenu from "./components/UserMenu";
-import ChangePasswordModal from "../../modals/ChangePasswordModal";
+import ChangePasswordModal from "@components/modals/ChangePasswordModal";
 
 const HeaderActions = () => {
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);

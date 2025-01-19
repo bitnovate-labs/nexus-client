@@ -2,7 +2,7 @@ import { Dropdown, Badge } from "antd";
 import { BellOutlined } from "@ant-design/icons";
 
 // Dummy data
-import { notifications } from "../../../../dummydata";
+import { notifications } from "../../../dummydata";
 
 const NotificationMenu = () => {
   // const notifications = [];

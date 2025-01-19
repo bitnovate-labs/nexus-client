@@ -27,9 +27,9 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useTheme } from "../../contexts/ThemeContext";
-import logoFull from "../../assets/logo-full.svg";
-import logoIcon from "../../assets/logo-icon.svg";
+import { useTheme } from "@contexts/ThemeContext";
+import logoFull from "@assets/logo-full.svg";
+import logoIcon from "@assets/logo-icon.svg";
 
 const { Sider } = Layout;
 
@@ -44,7 +44,7 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
     return `/${basePath}`;
   };
 
-  // Navigation Menu Items
+  // SIDEBAR MENU ITEMS
   const menuItems = [
     {
       key: "/dashboard",
@@ -57,6 +57,12 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
       icon: <CalendarOutlined />,
       label: "Events",
       onClick: () => handleMenuClick("/events"),
+    },
+    {
+      key: "/memo",
+      icon: <FileTextOutlined />,
+      label: "Memo",
+      onClick: () => handleMenuClick("/memo"),
     },
     {
       key: "/developers",
@@ -81,37 +87,6 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
     //   icon: <ShoppingOutlined />,
     //   label: "Sales",
     //   onClick: () => handleMenuClick("/sales"),
-    // },
-    // {
-    //   key: "/finance",
-    //   icon: <DollarOutlined />,
-    //   label: "Finance",
-    //   children: [
-    //     {
-    //       key: "/invoice",
-    //       icon: <FileTextOutlined />,
-    //       label: "Invoice",
-    //       onClick: () => handleMenuClick("/invoice"),
-    //     },
-    //     {
-    //       key: "/receipt",
-    //       icon: <FileTextOutlined />,
-    //       label: "Receipt",
-    //       onClick: () => handleMenuClick("/receipt"),
-    //     },
-    //     {
-    //       key: "/credit-note",
-    //       icon: <CreditCardOutlined />,
-    //       label: "Credit Note",
-    //       onClick: () => handleMenuClick("/credit-note"),
-    //     },
-    //     {
-    //       key: "/debit-note",
-    //       icon: <CreditCardOutlined />,
-    //       label: "Debit Note",
-    //       onClick: () => handleMenuClick("/debit-note"),
-    //     },
-    //   ],
     // },
     // {
     //   key: "/reports",
@@ -216,6 +191,12 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
           onClick: () => handleMenuClick("/events-settings"),
         },
         {
+          key: "/memo-settings",
+          icon: <FileTextOutlined />,
+          label: "Memo",
+          onClick: () => handleMenuClick("/memo-settings"),
+        },
+        {
           key: "/user-roles",
           icon: <TeamOutlined />,
           label: "User Account Role",
@@ -238,6 +219,7 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
     // Add more menu items here!!!
   ];
 
+  // HANDLE MENU CLICK
   const handleMenuClick = (e) => {
     navigate(e.key);
     // Only trigger mobile close if it's a mobile view and there's a close handler
@@ -256,10 +238,10 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
         [&_.ant-menu]:!bg-inherit fixed left-0 top-0 bottom-0 overflow-auto z-20
       `}
       theme={isDark ? "dark" : "light"}
-      width={250}
+      width={220}
       trigger={isMobile || ""}
     >
-      {/* Sidebar Title */}
+      {/* SIDEBAR TITLE */}
       <div className="h-16 mb-10 mt-6 ml-6 md:mt-10 flex flex-col">
         <img
           src={collapsed ? logoIcon : logoFull}
@@ -271,11 +253,14 @@ const Sidebar = ({ collapsed, onCollapse, isMobile, onMobileItemClick }) => {
             collapsed ? "hidden" : "text-xs"
           }`}
         >
+          {/* TO BE REMOVED LATER!! */}
           {/* Version: 2411061530 */}
-          Version: 2501171521
+          {/* Version: 2501171521 */}
+          Version: {`${_APP_VERSION_}`}
         </p>
       </div>
-      {/* Navigation Menu */}
+
+      {/* SIDEBAR MENU */}
       <Menu
         theme={isDark ? "dark" : "light"}
         mode="inline"

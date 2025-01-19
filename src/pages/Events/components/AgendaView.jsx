@@ -33,7 +33,12 @@ const AgendaView = ({ selectedDate }) => {
   const data = [];
 
   return (
-    <Card title="Agenda" bodyStyle={{ paddingTop: 5, padding: 5 }}>
+    <Card
+      title="Agenda"
+      styles={{
+        body: { paddingTop: 5, padding: 5 },
+      }}
+    >
       <Table
         columns={columns}
         dataSource={data}

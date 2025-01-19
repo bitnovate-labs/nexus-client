@@ -61,7 +61,6 @@ export const useEvents = () => {
       const { data } = await createEventMutation({
         variables: transformedData,
       });
-      console.log(data);
       return data.createEvent;
     } catch (error) {
       throw new Error(error.message);

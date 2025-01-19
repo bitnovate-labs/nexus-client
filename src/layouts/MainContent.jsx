@@ -6,7 +6,7 @@ import Header from "./Header/Header";
 
 const { Content } = AntLayout;
 
-const Layout = ({ children }) => {
+const MainContent = ({ title, children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -29,6 +29,7 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // HANDLE SIDEBAR OPEN/CLOSE
   const handleCollapse = (value) => {
     if (!isMobile) {
       setCollapsed(value);
@@ -36,13 +37,14 @@ const Layout = ({ children }) => {
     }
   };
 
+  // HANDLE MOBILE DRAWER OPEN/CLOSE
   const toggleMobileDrawer = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
   return (
     <AntLayout className="min-h-screen">
-      {/* Sidebar - Mobile view */}
+      {/* SIDEBAR LAYOUT - MOBILE VIEW */}
       {isMobile ? (
         <>
           <Button
@@ -52,14 +54,14 @@ const Layout = ({ children }) => {
             onClick={toggleMobileDrawer}
             className="fixed top-4 left-4 z-50 bg-white dark:bg-gray dark:text-white"
           />
-          {/* Overlay */}
+          {/* SIDEBAR BACKGROUND OVERLAY */}
           <div
             className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
               mobileDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
             onClick={toggleMobileDrawer}
           />
-          {/* Sliding Panel */}
+          {/* SIDEBAR Sliding Panel */}
           <div
             className={`fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-gray z-50 transform transition-transform duration-300 ${
               mobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
@@ -74,7 +76,7 @@ const Layout = ({ children }) => {
           </div>
         </>
       ) : (
-        // Sidebar - Desktop view
+        // SIDEBAR LAYOUT - DESKTOP VIEW
         <Sidebar
           collapsed={collapsed}
           onCollapse={handleCollapse}
@@ -82,13 +84,20 @@ const Layout = ({ children }) => {
         />
       )}
       <AntLayout
-        className={!isMobile ? (collapsed ? "ml-[80px]" : "ml-[250px]") : ""}
+        className={!isMobile ? (collapsed ? "ml-[80px]" : "ml-[220px]") : ""}
       >
-        <Header />
-        <Content className="p-6 rounded-lg">{children}</Content>
+        <Header /> {/* APPLICATION HEADER */}
+        {/* APPLICATION BODY */}
+        <Content className="p-4">
+          {/* PAGE TITLE */}
+          <div className="flex flex-col md:flex-row justify-between items-center pb-4 md:pb-2">
+            <h1 className="text-2xl font-bold ml-2">{title}</h1>
+          </div>
+          {children} {/* PAGE CONTENT */}
+        </Content>
       </AntLayout>
     </AntLayout>
   );
 };
 
-export default Layout;
+export default MainContent;
